@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './pages/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MisTurnosComponent } from './pages/mis-turnos/mis-turnos.component';
+import { CardTurnoComponent } from './components/card-turno/card-turno.component';
 
 
 
@@ -22,7 +23,8 @@ import { MisTurnosComponent } from './pages/mis-turnos/mis-turnos.component';
     WhichRegisterComponent,
     HomeComponent,
     NavbarComponent,
-    MisTurnosComponent
+    MisTurnosComponent,
+    CardTurnoComponent
   ],
   imports: [
     BrowserModule,

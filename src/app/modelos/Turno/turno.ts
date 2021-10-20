@@ -1,6 +1,12 @@
 export class Turno {
-    public especialista;
-    public especialidad;
-    public fechaTurno;
-    public paciente;
+    public especialidad:string;
+    public medico:string;
+    public horario:string;
+    public pedidoEl:Date;
+    public paciente:string;
+    public pacienteEmail:string;
+    public comentario?:string = '';
+    public realizado?:boolean = false;
+    public cancelado?:boolean = false;
+
 }

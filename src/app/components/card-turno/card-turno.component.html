@@ -1,0 +1,16 @@
+<div class="card" style="width: 100%;">    
+    <div class="card-body">
+        <h2 class="card-title">{{turnoAMostrar.especialidad}}</h2>
+        <div class="row">
+            <h3 >{{estado}}</h3>
+            <p class="card-text">El turno es para el dia: {{turnoAMostrar.pedidoEl}}</p>
+            <p class="card-text">Con el doctor: {{turnoAMostrar.medico}}</p>
+            <p class="card-text">Para el paciente: {{turnoAMostrar.paciente}}</p>
+            <p class="card-text">El turno se ha emitido el dia: {{turnoAMostrar.pedidoEl}}</p>
+            <button class="btn btn-danger" style="width:25%">Cancelar</button>
+            <button *ngIf="turnoAMostrar.comentario != ''" class="btn btn-success" style="width:25%">Ver Reseña</button>
+            <button *ngIf="turnoAMostrar.realizado && turnoAMostrar.comentario != ''" class="btn btn-primary" style="width:25%">Completar Encuesta</button>
+            <button *ngIf="turnoAMostrar.realizado" class="btn btn-info" style="width:25%">Calificar Atencion</button>
+        </div>
+    </div>
+  </div>
