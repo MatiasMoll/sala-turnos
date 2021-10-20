@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { IngresoService } from './services/ingreso/ingreso.service';
+
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'SalaDeTurnos';
+  constructor(
+    public ingresoService:IngresoService
+  ){}
 }

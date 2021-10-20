@@ -1,0 +1,13 @@
+<div >
+    <div class="row">
+        <div class="col total">
+            <button type="button" class="btn btn-info centrado" (click)="routeo('ingreso/login')">Login</button>
+        </div>
+        <div class="col total2">
+            <button type="button" class="btn btn-warning centrado" (click)="test()" *ngIf="!showWhichRegister;else whichRegister">Registro</button>
+            <ng-template #whichRegister>
+                <app-which-register (eventoCerrarRegistro)="showWhichRegister = false"></app-which-register>
+            </ng-template>
+        </div>
+    </div>
+</div>

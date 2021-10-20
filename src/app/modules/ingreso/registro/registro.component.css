@@ -1,0 +1,53 @@
+.container {
+    max-width: 600px;
+    padding: 60px;
+    position:relative;
+    /* SHADOW */
+    -webkit-box-shadow: 1px 1px 31px -5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 1px 1px 31px -5px rgba(0,0,0,0.75);
+    box-shadow: 1px 1px 31px -5px rgba(0,0,0,0.75);
+}
+
+.shadow{
+    background-color: rgba(0,0,0,0.8);
+}
+
+.bodyShadow{
+    max-width: 600px;
+    padding: 60px;
+    position:relative;
+    /* SHADOW */
+    -webkit-box-shadow: 1px 1px 31px -5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 1px 1px 31px -5px rgba(0,0,0,0.75);
+    box-shadow: 1px 1px 31px -5px rgba(0,0,0,0.75);
+    background-color: rgba(0,0,0,0.8);
+}
+
+.modalAgregar{
+    position: absolute;
+    display:block;
+    height: 25%;
+    width: 25%;
+    top: 38.5%;
+    left: 38.5%;
+ 
+    background-color: aquamarine;
+}
+.spinner{
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    top: 50%;
+    left: 50%;
+    margin-left: -50px;
+    margin-top: -50px;
+    background: url(./../../../../assets/giphy.gif);
+    background-size: 100%;
+}
+.formulario div[class^="col-md-"] {
+    height: 90px;
+}
+
+.invalid {
+    color: red;
+}

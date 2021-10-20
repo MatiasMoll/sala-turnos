@@ -1,0 +1,10 @@
+<div class="container">
+    <div class="col-md-6 mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombre" placeholder="Ingrese nombre de la nueva" [(ngModel)]="nameSpeciality">
+        <!--<small class="invalid" *ngIf="formGroup.get('nombre').errors?.required && formGroup.get('nombre').touched">El nombre es requerido</small>
+        <small class="invalid" *ngIf="formGroup.get('nombre').errors?.contieneEspacios && formGroup.get('nombre').touched">El nombre no puede tener espacios</small>-->
+    </div>
+    <button type="button" class="btn btn-success" (click)="agregarEspecialidad()">Agregar especialidad</button>
+    <button type="button" class="btn btn-danger" (click)="eventoCerrar()">Cancelar</button>
+</div>

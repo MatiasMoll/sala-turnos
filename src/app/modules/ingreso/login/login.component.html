@@ -1,0 +1,72 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.82.0">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
+
+    
+
+    <!-- Bootstrap core CSS -->
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+  </head>
+<body>
+    <main class="form-signin">
+        <form>
+            <img class="mb-4" src="../../../../favicon.ico" alt="" width="72" height="57">
+            <h1 class="h3 mb-3 fw-normal">Por favor, ingrese al sistema</h1>
+        
+            <div class="form-floating">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" [(ngModel)]="usrName" name="name">            
+                <label for="floatingInput">Correo electronico</label>
+            </div>
+
+            <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" [(ngModel)]='usrPass' name="pass">            
+                <label for="floatingPassword">Contraseña</label>
+            </div>
+        
+            
+            <button type="button" (click)="login()" class="w-100 mt-3 btn btn-lg btn-primary">Ingresar</button>
+            <button type="button" (click)="loginWithGoogle()" class="w-100 mt-3 btn btn-lg btn-primary">
+                Ingresar con Google
+            </button>
+            <div class="container">
+              <div class="row">
+                <div class="col-sm">
+                  <button type="button" (click)="fillInputs('matias_travian@hotmail.com','soyadmin123')" class="w-100  mt-3 btn btn-lg btn-primary">Admin</button>
+                </div>
+                <div class="col-sm">
+                  <button type="button" (click)="fillInputs('denu.moreno.1990@gmail.com','pameladaniela')" class="w-100  mt-3 btn btn-lg btn-primary">Especialista</button>
+                </div>
+                <div class="col-sm">
+                   <button type="button" (click)="fillInputs('moll.matias.a@gmail.com','isanoe20')" class="w-100  mt-3 btn btn-lg btn-primary">Paciente</button>
+                </div>
+              </div>
+            </div>
+            
+        </form>
+    </main>
+</body>
+  
+
+
+<router-outlet></router-outlet>
