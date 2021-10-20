@@ -6,11 +6,13 @@ import { IngresoModule } from './modules/ingreso/ingreso.module';
 import { UsuariosModule } from './modules/usuarios/usuarios.module';
 import { BienvenidoComponent } from './pages/bienvenido/bienvenido.component';
 import { HomeComponent } from './pages/home/home.component';
+import { MisTurnosComponent } from './pages/mis-turnos/mis-turnos.component';
 
 const routes: Routes = [
  
   {path:'bienvenido',component:BienvenidoComponent},
   {path:'home',component:HomeComponent,canActivate:[IsLoggedUserGuard]},
+  {path:'mis-turnos',component:MisTurnosComponent},
   {path:'ingreso',loadChildren: () => import('./modules/ingreso/ingreso.module').then(m => IngresoModule) },
   {path:'usuarios',loadChildren: () => import('./modules/usuarios/usuarios.module').then(m => UsuariosModule),canActivate:[IsLoggedAdminGuard] },
   {path:'**',redirectTo:'bienvenido',pathMatch:'full'}

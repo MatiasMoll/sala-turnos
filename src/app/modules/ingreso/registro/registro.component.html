@@ -44,7 +44,7 @@
           <input type="file" accept="image/png,image/jpeg" class="form-control" id="fotoDos" placeholder="Ingrese foto" formControlName="fotoDos">
           <small class="invalid" *ngIf="formGroup.get('fotoDos').errors?.required && formGroup.get('fotoDos').touched ">La foto es requerida</small>
         </div>
-        <div *ngIf="tipoRegistro == 'paciente'; else especialistaBlock" class="col-md-12 mb-5">
+        <div *ngIf="tipoRegistro == 'paciente'" class="col-md-12 mb-5">
           <label for="obraSocial" class="form-label">Obra Social</label>
           <input type="obraSocial" class="form-control" id="obraSocial" placeholder="Ingrese obraSocial" formControlName="obraSocial">
           <small class="invalid" *ngIf="formGroup.get('obraSocial').errors?.required && formGroup.get('obraSocial').touched ">El obraSocial es requerido</small>
@@ -54,7 +54,7 @@
             <input type="dni" class="form-control" id="dni" placeholder="Ingrese dni" formControlName="dni">
             <small class="invalid" *ngIf="formGroup.get('dni').errors?.required && formGroup.get('dni').touched ">El dni es requerido</small>
         </div>
-        <ng-template #especialistaBlock>
+        <ng-template *ngIf="tipoRegistro == 'especialista'">
           <div class="col-md-12 mb-5">
             <label for="especialidades" class="form-label">Especialidades</label>
             <select class="form-select" id="sexo" (change)="agregarEsp()" formControlName='especialidad'>
@@ -71,7 +71,7 @@
           <button type="submit" class="btn btn-success btn-block" [disabled]="formGroup.invalid">
             Registrarse
           </button>
-          <button routerLink='/' type="button" class='btn btn-primary'>Volver al inicio</button>
+          <button routerLink='/' type="button" class='btn btn-primary'  *ngIf="!this.auth.isLogged" >Volver al inicio</button>
         </div>
     </div>
   </form>

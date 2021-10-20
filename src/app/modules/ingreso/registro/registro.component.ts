@@ -6,6 +6,7 @@ import { IngresoService } from 'src/app/services/ingreso/ingreso.service';
 import { map } from 'rxjs/operators';
 import { Pacientes } from 'src/app/modelos/pacientes/pacientes';
 import { Especialistas } from 'src/app/modelos/especialistas/especialistas';
+import { Administradores } from 'src/app/modelos/administradores/administradores';
 
 @Component({
   selector: 'app-registro',
@@ -18,14 +19,17 @@ export class RegistroComponent implements OnInit {
   public nuevoUsr:string;
   public nuevoPass:string;
   public mostrarModal:Boolean = false;
+
   public nuevoPaciente:Pacientes = null;
   public nuevosEspecialista:Especialistas = null;
+  public nuevoAdmisnitrador:Administradores = null;
+
   public modal:Object = {'titulo':'','cuerpo':''};
   public tipoRegistro;
   public formGroup:FormGroup;
   public seAgregoEsp:boolean;
   public especialidades = [];
-
+  
   constructor(
     public router:Router,
     public auth:IngresoService,
@@ -44,8 +48,22 @@ export class RegistroComponent implements OnInit {
       this.formGroup = this.formGroupPaciente();
     }else if(this.tipoRegistro == 'especialista'){
       this.formGroup = this.formGroupEspecialista();
+    }else{
+      this.formGroup = this.formGroupAdministrador();
     }
    
+  }
+
+  formGroupAdministrador(){
+    return this.fb.group({
+      'nombre':['',[Validators.required,this.spaceValidator]],
+      'apellido':['',Validators.required],
+      'edad':['',[Validators.required,Validators.min(18),Validators.max(99)]],
+      'dni':['',Validators.required],
+      'email':['',[Validators.required,Validators.email]],
+      'contraseña':['',Validators.required],
+      'foto':['',Validators.required]
+    });
   }
 
   formGroupEspecialista(){
@@ -101,18 +119,25 @@ export class RegistroComponent implements OnInit {
   }
 
   registroWithEmailAndPassword(){
+  
     if(this.tipoRegistro == 'especialista'){
       this.nuevosEspecialista = this.createEspecialista();
-    }else{
+    }else if(this.tipoRegistro == 'paciente'){
       this.nuevoPaciente = this.createPaciente();
+    }else{
+      this.nuevoAdmisnitrador = this.createAdministrador();
     }
-    this.auth.registroWithEmailAndPassword(this.nuevoPaciente != null ? this.nuevoPaciente : this.nuevosEspecialista,this.tipoRegistro == 'especialista')
+    
+    this.auth.registroWithEmailAndPassword(this.nuevoPaciente != null ? this.nuevoPaciente : this.nuevosEspecialista != null ? this.nuevosEspecialista : this.nuevoAdmisnitrador);
   }
 
   seCreoNuevaEspecialidad($event){
     this.especialidadesService.create($event);
   } 
 
+  createAdministrador(){
+    return null;
+  }
   createEspecialista(){
     return new Especialistas(
       this.formGroup.getRawValue()['nombre'],
@@ -153,4 +178,6 @@ export class RegistroComponent implements OnInit {
       return null;
     }
   }
+
+
 }

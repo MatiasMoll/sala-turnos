@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
     private router: Router,
     private route:ActivatedRoute
   ) { 
-    this.router.events.subscribe((val) => this.weAreInUsuarios = (<NavigationEnd>val).url == '/usuarios');
+    this.router.events.subscribe((val) =>this.weAreInUsuarios = (<NavigationEnd>val).url?.includes('usuarios'));
    
   }
 

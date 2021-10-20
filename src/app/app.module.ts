@@ -11,6 +11,8 @@ import { environment } from 'src/environments/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './pages/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { MisTurnosComponent } from './pages/mis-turnos/mis-turnos.component';
+
 
 
 @NgModule({
@@ -19,7 +21,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     BienvenidoComponent,
     WhichRegisterComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    MisTurnosComponent
   ],
   imports: [
     BrowserModule,

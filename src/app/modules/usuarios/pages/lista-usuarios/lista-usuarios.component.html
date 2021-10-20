@@ -1,4 +1,4 @@
-<h1>FUNCIONA: {{isEspecialista}}}</h1>
+
 <table class="table" *ngIf="this.listaUsuarios">
     <thead>
       <tr>
@@ -7,20 +7,21 @@
         <th scope="col">Mail</th>
         <th scope="col">Edad</th>
         <th scope="col">Dni</th>
-        <th scope="col" *ngIf="this.isSpecialist">Habilitar Cuenta</th>
+        <th scope="col" *ngIf="this.isEspecialista">Habilitar Cuenta</th>
       </tr>
     </thead>
-    <tbody *ngFor="let user in this.listaUsuarios">
+    <tbody *ngFor="let user of this.listaUsuarios;let i = index">
       <tr>
         <th scope="row">{{user.nombre}}</th>
         <td>{{user.apellido}}</td>
         <td>{{user.mail}}</td>
         <td>{{user.edad}}</td>
         <td>{{user.dni}}</td>
-        <td  *ngIf="this.isSpecialist">
-            <label>
-                <input type="checkbox" value="user.enabled">Cuenta Habilitada
-            </label>            
+        <td  *ngIf="this.isEspecialista">
+          <div class="row">
+            <button class="btn btn-danger" *ngIf="user.enabled" (click)="changeEstado(user,false)">Inhabilitar cuenta</button>
+            <button class="btn btn-success" *ngIf="!user.enabled" (click)="changeEstado(user,true)">Habilitar cuenta</button>
+          </div>
         </td>
       </tr>
     </tbody>

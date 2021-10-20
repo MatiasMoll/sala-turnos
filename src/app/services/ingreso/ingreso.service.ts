@@ -29,9 +29,11 @@ export class IngresoService {
     public subscritoE;
     public subscritoA;
     public isLogged:boolean = false;
+
     public static userNameLogged:string;
     public static completeName:string;
     public static iudUserLogged:string;
+    public static showSpinner = false;
 
     UsuariosRef: AngularFirestoreCollection<any>;
     PacientesRef: AngularFirestoreCollection<Pacientes>;
@@ -87,12 +89,20 @@ export class IngresoService {
     }
   
 
-    registroWithEmailAndPassword(nuevoUsuario: Especialistas | Pacientes, isEspecialista){
-      this.afAuth.createUserWithEmailAndPassword(nuevoUsuario.mail,nuevoUsuario.pass).then(
-        () =>{
-            isEspecialista ? this.addEspecialsita(nuevoUsuario) : this.addPaciente(nuevoUsuario);
-            this.router.navigate(['bienvenido']);
-            this.afAuth.currentUser.then(u => u.sendEmailVerification());
+    registroWithEmailAndPassword(nuevoUsuario: Especialistas | Pacientes | Administradores){
+
+        return this.afAuth.createUserWithEmailAndPassword(nuevoUsuario.mail,nuevoUsuario.pass).then(
+            () =>{
+                if('especialidad' in nuevoUsuario){
+                    this.addEspecialsita(nuevoUsuario);
+                }else if ('obraSocial' in  nuevoUsuario){
+                    this.addPaciente(nuevoUsuario);
+                }else{
+                    this.addAdministrador(nuevoUsuario);
+                }
+                IngresoService.showSpinner = false;
+                this.router.navigate(['bienvenido']);
+                this.afAuth.currentUser.then(u => u.sendEmailVerification());
         })
     }
 
@@ -124,11 +134,11 @@ export class IngresoService {
     getAllEspecialistas():AngularFirestoreCollection<Especialistas>{
         return this.EspecialistasRef;
     }
-    /*
-    getUser(email){
-        return this.db.collection(this.usuarios,ref => ref.where('nombre','==',email))
+
+    updateEspecialista(id,enabledAccount){
+        console.log('name  '+ id);
+        this.db.collection(this.especialistas).doc(id).update({enabled: enabledAccount});
     }
-    */
     //Pacientes
     addPaciente(paciente){
         this.PacientesRef.add({...paciente});
