@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IngresoService } from './services/ingreso/ingreso.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -8,8 +9,12 @@ import { IngresoService } from './services/ingreso/ingreso.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'SalaDeTurnos';
+  title = 'Clinica Online';
   constructor(
     public ingresoService:IngresoService
-  ){}
+  ){
+   
+  }
+
+  
 }

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" routerLink=''>Sala de juegos</a>
+      <a class="navbar-brand" routerLink='/home'>Clinica Online</a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item" *ngIf = "this.ingresoService.administradorLogeado">
@@ -12,8 +12,14 @@
           <li class="nav-item" *ngIf = "this.ingresoService.administradorLogeado && this.weAreInUsuarios">
             <a class="nav-link active" aria-current="page" (click)="routeo('usuarios/listaUsuarios',true)">Especialista</a>
           </li>
-          <li class="nav-item" *ngIf = "this.ingresoService.isLogged">
+          <li class="nav-item" *ngIf = "this.ingresoService.isLogged && this.ingresoService.administradorLogeado == null">
             <a class="nav-link active" aria-current="page" (click)="routeo('mis-turnos')">Mis Turnos</a>
+          </li>
+          <li class="nav-item" *ngIf = "this.ingresoService.isLogged && this.ingresoService.especialistaLogeado == null">
+            <a class="nav-link active" aria-current="page" (click)="routeo('altaTurno')">Solicitar Turno</a>
+          </li>
+          <li class="nav-item" *ngIf = "this.ingresoService.isLogged && this.ingresoService.administradorLogeado != null">
+            <a class="nav-link active" aria-current="page" (click)="routeo('mis-turnos')">Turnos</a>
           </li>
           <li class="nav-item" *ngIf = "this.ingresoService.administradorLogeado && this.weAreInUsuarios">
             <a class="nav-link active" aria-current="page" (click)="routeo('home/')">Volver</a>
@@ -29,13 +35,14 @@
           </ng-template>
           <ng-template #blockLogOut>
             <div class="m-3">
-                <div class="row">
+                <div class="row" style="size: 10px">
                     {{getNombreUsuario()}}
                 </div>
                 <div class="row">
                     {{getCompleteName()}}
                 </div>
             </div>
+            <button class="btn btn-outline-primary" (click)="routeo('miPerfil')">Mi Perfil</button>
             <button class="btn btn-outline-danger" (click)="logOut()" >Log Out</button>
           </ng-template>
         </form>

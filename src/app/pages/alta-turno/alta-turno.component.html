@@ -1,0 +1,39 @@
+
+<div>
+    <form >
+        <div class="row">
+            <div class="col-md-12 mb-5">
+                <h2>Pedir turno</h2>
+            </div>
+        </div>
+        <div class="row formulario">
+            <div class="col-md-12 mb-5">
+                <label for="especialidades" class="form-label">Especialidades</label>
+                <select class="form-select" id="especialidades" (change)="filterEspecialistas()" [(ngModel)]="especialidadElegida" name="especialidad">
+                    <option value="">--Seleccione uno--</option>
+                    <option *ngFor="let esp of especialidades" value="{{esp}}"> {{esp}}</option>              
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="nombre" class="form-label">Especialista</label>
+
+            <select class="form-select" id="especialidades" [(ngModel)]="medico" name="especialistas">
+                <option value="">--Seleccione uno--</option>
+                <option *ngFor="let esp of especialistaPorEspecialidad" value="{{esp.mail}}"> {{esp.nombre}} {{esp.apellido}}</option>              
+            </select>
+            <!--<small class="invalid" *ngIf="formGroup.get('Especialista').errors?.required && formGroup.get('Especialista').touched">El Especialista es requerido</small>
+            <small class="invalid" *ngIf="formGroup.get('Especialista').errors?.contieneEspacios && formGroup.get('Especialista').touched">El Especialista no puede tener espacios</small>-->
+        </div>
+        <div class="row">
+            <div class="col-md-12 d-grid gap-2">
+            <button type="button" class="btn btn-success btn-block" (click)="darDeAltaTurno()">
+                Pedir Turno
+            </button>
+            <button routerLink='/home' type="button" class='btn btn-primary'>Volver al inicio</button>
+            </div>
+        </div>
+    </form>
+  </div>
+ 
+

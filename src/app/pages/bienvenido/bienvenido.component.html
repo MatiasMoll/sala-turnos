@@ -1,4 +1,5 @@
-<div >
+<!-- <div class="container">
+    <img src="../../../assets/backgroundimage.jpg">
     <div class="row">
         <div class="col total">
             <button type="button" class="btn btn-info centrado" (click)="routeo('ingreso/login')">Login</button>
@@ -7,6 +8,25 @@
             <button type="button" class="btn btn-warning centrado" (click)="test()" *ngIf="!showWhichRegister;else whichRegister">Registro</button>
             <ng-template #whichRegister>
                 <app-which-register (eventoCerrarRegistro)="showWhichRegister = false"></app-which-register>
+            </ng-template>
+        </div>
+    </div>
+</div> -->
+
+<div class="container">
+    <img src="../../../assets/backgroundimage.jpg" alt="Snow">
+    <div class="row">
+        <div class="col total">
+            <button type="button" *ngIf="!showWhichRegister" class="btn btn-info btn2" (click)="routeo('ingreso/login')">Login</button>
+            <!-- <button *ngIf="showWhichRegister" class="btn btn-info" type="button" (click)="irRegistro('paciente')">
+            </button> -->
+            <img class="btn2"  *ngIf="showWhichRegister" (click)="irRegistro('paciente')" src='../../../assets/paciente.jpg'>
+        </div>
+        <div class="col total2">
+            <button type="button"  class="btn-warning centrado" (click)="test()" *ngIf="!showWhichRegister;else whichRegister">Registro</button>
+            <ng-template #whichRegister>
+                <img class="centrado"  *ngIf="showWhichRegister" (click)="irRegistro('especialista')" src='"../../../assets/especialista.png'>
+                <button class="btn btn-dark cerrar" (click)="seCerroElRegistro()">X</button>
             </ng-template>
         </div>
     </div>

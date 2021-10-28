@@ -32,7 +32,7 @@
     <main class="form-signin">
         <form>
             <img class="mb-4" src="../../../../assets/favicon.ico" alt="" width="72" height="57">
-            <h1 class="h3 mb-3 fw-normal">Por favor, ingrese al sistema</h1>
+            <h4 class="h3 mb-3 fw-normal">Por favor, ingrese al sistema</h4>
         
             <div class="form-floating">
                 <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" [(ngModel)]="usrName" name="name">            
@@ -45,21 +45,22 @@
             </div>
         
             
-            <button type="button" (click)="login()" class="w-100 mt-3 btn btn-lg btn-primary">Ingresar</button>
-            <button type="button" (click)="loginWithGoogle()" class="w-100 mt-3 btn btn-lg btn-primary">
+            <button type="button" (click)="login()" class="w-100 mt-3 btn btn-lg btn-primary btn-sm">Ingresar</button>
+            <button type="button" (click)="loginWithGoogle()" class="w-100 mt-3 btn btn-lg btn-primary btn-sm">
                 Ingresar con Google
             </button>
             <div class="container">
               <div class="row">
                 <div class="col-sm">
-                  <button type="button" (click)="fillInputs('matias_travian@hotmail.com','soyadmin123')" class="w-100  mt-3 btn btn-lg btn-primary">Admin</button>
+                  <button type="button" (click)="fillInputs('matias_travian@hotmail.com','soyadmin123')" class="w-100  mt-3 btn btn-lg btn-primary btn-sm">Admin</button>
                 </div>
                 <div class="col-sm">
-                  <button type="button" (click)="fillInputs('denu.moreno.1990@gmail.com','pameladaniela')" class="w-100  mt-3 btn btn-lg btn-primary">Especialista</button>
+                  <button type="button" (click)="fillInputs('denu.moreno.1990@gmail.com','pameladaniela')" class="w-100  mt-3 btn btn-lg btn-primary btn-sm">Especialista</button>
                 </div>
                 <div class="col-sm">
-                   <button type="button" (click)="fillInputs('moll.matias.a@gmail.com','isanoe20')" class="w-100  mt-3 btn btn-lg btn-primary">Paciente</button>
+                   <button type="button" (click)="fillInputs('moll.matias.a@gmail.com','isanoe20')" class="w-100  mt-3 btn btn-lg btn-primary btn-sm">Paciente</button>
                 </div>
+                <button class="abajoIz" mat-mini-fab> as</button>
               </div>
             </div>
             

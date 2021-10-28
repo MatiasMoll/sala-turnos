@@ -7,6 +7,7 @@
         <th scope="col">Mail</th>
         <th scope="col">Edad</th>
         <th scope="col">Dni</th>
+        <th scope="col" *ngIf="this.isEspecialista">Especialidad</th>
         <th scope="col" *ngIf="this.isEspecialista">Habilitar Cuenta</th>
       </tr>
     </thead>
@@ -17,6 +18,7 @@
         <td>{{user.mail}}</td>
         <td>{{user.edad}}</td>
         <td>{{user.dni}}</td>
+        <td  *ngIf="this.isEspecialista">{{user.especialidad}}</td>
         <td  *ngIf="this.isEspecialista">
           <div class="row">
             <button class="btn btn-danger" *ngIf="user.enabled" (click)="changeEstado(user,false)">Inhabilitar cuenta</button>

@@ -32,6 +32,7 @@ export class NavbarComponent implements OnInit {
   logOut(){
     this.ingresoService.logout();
   }
+  
 
   getNombreUsuario() {
     return IngresoService.userNameLogged;

@@ -1,16 +1,28 @@
-<div class="card" style="width: 100%;">    
+<div class="botonAccion card" style="width: 100%;">    
     <div class="card-body">
         <h2 class="card-title">{{turnoAMostrar.especialidad}}</h2>
         <div class="row">
-            <h3 >{{estado}}</h3>
-            <p class="card-text">El turno es para el dia: {{turnoAMostrar.pedidoEl}}</p>
-            <p class="card-text">Con el doctor: {{turnoAMostrar.medico}}</p>
-            <p class="card-text">Para el paciente: {{turnoAMostrar.paciente}}</p>
+            <h3 >{{turnoAMostrar.estado}}</h3>
+            <p class="card-text">El turno es para el dia: {{turnoAMostrar.horario}}</p>
+            <p class="card-text">Con el doctor: {{turnoAMostrar.medico.nombre}} {{turnoAMostrar.medico.apellido}}</p>
+            <p class="card-text">Para el paciente: {{turnoAMostrar.paciente.nombre}} {{turnoAMostrar.paciente.apellido}}</p>
             <p class="card-text">El turno se ha emitido el dia: {{turnoAMostrar.pedidoEl}}</p>
-            <button class="btn btn-danger" style="width:25%">Cancelar</button>
-            <button *ngIf="turnoAMostrar.comentario != ''" class="btn btn-success" style="width:25%">Ver Reseña</button>
-            <button *ngIf="turnoAMostrar.realizado && turnoAMostrar.comentario != ''" class="btn btn-primary" style="width:25%">Completar Encuesta</button>
-            <button *ngIf="turnoAMostrar.realizado" class="btn btn-info" style="width:25%">Calificar Atencion</button>
+            <div *ngIf="this.ingresoService.pacienteLogeado">
+                <button id="Cancelado" class="botonAccion btn btn-danger" (click)="cambiarEstado($event)">Cancelar</button>
+                <button *ngIf="turnoAMostrar.comentario != ''" class="botonAccion btn btn-success">Ver Reseña</button>
+                <button *ngIf="turnoAMostrar.estado == 'Realizado' && turnoAMostrar.comentario != ''" class="botonAccion btn btn-primary">Completar Encuesta</button>
+                <button *ngIf="turnoAMostrar.estado == 'Realizado'" class="botonAccion btn btn-info">Calificar Atencion</button>
+            </div>
+            <div *ngIf="this.ingresoService.especialistaLogeado">
+                <button id="Cancelado" *ngIf="turnoAMostrar.estado == 'Pedido'" (click)="cambiarEstado($event)" class="botonAccion btn btn-warning">Cancelar</button>
+                <button id="Rechazado" *ngIf="turnoAMostrar.estado == 'Pedido'" (click)="cambiarEstado($event)" class="botonAccion btn btn-danger">Rechazar</button>
+                <button id="Aceptado" *ngIf="turnoAMostrar.estado == 'Pedido'" (click)="cambiarEstado($event)" class="botonAccion btn btn-success">Aceptar</button>
+                <button id="Finalizado" *ngIf="turnoAMostrar.estado == 'Aceptado'" class="botonAccion btn btn-primary" (click)="cambiarEstado($event)"style="width:25%">Finalizar</button>  
+                <button *ngIf="turnoAMostrar.comentario != ''" class="botonAccion btn btn-success">Ver Reseña</button>
+            </div>
+            <div *ngIf="this.ingresoService.administradorLogeado">
+                <button id="Finalizado" *ngIf="turnoAMostrar.estado == 'Pedido'" (click)="cambiarEstado($event)" class="botonAccion btn btn-warning">Cancelar</button>
+            </div>            
         </div>
     </div>
   </div>

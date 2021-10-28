@@ -1,16 +1,96 @@
-.total{
+/* .total{
     height: 100vh;
 }
 
 .total2{
     height: 100vh;
-    background-color: red;
 }
 
-.centrado{
+.container .centrado{
     height: 7%;
     width: 50%;
-    margin-top: 46.5%;
-    margin-left: 25%;
+    margin-top: 0%;
+    margin-left: 0%;
+    position: absolute;
+
+
+} */
+
+
+/* Container needed to position the button. Adjust the width as needed */
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+}
+    
+.cerrar{
+    position:relative;
+    height: 15%;
+    width: 15%;
+    margin-top: 15%;
+    margin-left: 20%;
+    text-align: center;
 }
 
+/* Make the image responsive */
+img {
+    width: 100%;
+    height: 100%;
+}
+  
+/* Style the button and place it in the middle of the container/image */
+.btn {
+    width: 15%;
+    height: 15%;
+    display:block;
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+}
+   
+.btn2 {
+    width: 15%;
+    height: 25%;
+    display:block;
+    position: absolute;
+    top: 50%;
+    left: 25.5%;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 100%;
+}
+
+.centrado {
+    width: 15%;
+    height: 25%;
+    display:block;
+    position: absolute;
+    top: 50%;
+    left: 67.5%;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 100%;
+}
+  
+
+#close-image img {
+    display: block;
+    height: 100%;  
+    width: 100%;
+}
+
+#close-CSS {
+    background-image: url( 'http://thinkingstiff.com/images/matt.jpg' );
+       height: 134px;  
+    width: 104px;
+}

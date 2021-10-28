@@ -6,6 +6,7 @@ import { ListaUsuariosComponent } from './pages/lista-usuarios/lista-usuarios.co
 import { HomeUsComponent } from './pages/home-us/home-us.component';
 
 
+
 @NgModule({
   declarations: [
     ListaUsuariosComponent,

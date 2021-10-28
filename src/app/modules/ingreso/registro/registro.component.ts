@@ -7,6 +7,9 @@ import { map } from 'rxjs/operators';
 import { Pacientes } from 'src/app/modelos/pacientes/pacientes';
 import { Especialistas } from 'src/app/modelos/especialistas/especialistas';
 import { Administradores } from 'src/app/modelos/administradores/administradores';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { AngularFireUploadTask, AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-registro',
@@ -15,10 +18,19 @@ import { Administradores } from 'src/app/modelos/administradores/administradores
 })
 export class RegistroComponent implements OnInit {
 
+  public fileName = '';
+
+  dropdownSettings = {
+    textField: 'especialidad',
+    enableCheckAll:true,
+    selectAllText: 'Marcar todas las especialidades',
+    unSelectAllText: 'Desmarcar todas las especialidades',
+  };
   
   public nuevoUsr:string;
   public nuevoPass:string;
   public mostrarModal:Boolean = false;
+  public captchaResolved = false;
 
   public nuevoPaciente:Pacientes = null;
   public nuevosEspecialista:Especialistas = null;
@@ -29,18 +41,47 @@ export class RegistroComponent implements OnInit {
   public formGroup:FormGroup;
   public seAgregoEsp:boolean;
   public especialidades = [];
+
+  basePath = '/images';                       
+  downloadableURL = '';  
+  downloadableURL2 = '';                       
+  task!: AngularFireUploadTask;
+  progressValue!: Observable<any>;
   
   constructor(
     public router:Router,
     public auth:IngresoService,
     public route:ActivatedRoute,
     private fb:FormBuilder,
-    public especialidadesService:EspecialidadService
+    public especialidadesService:EspecialidadService,
+    public http:HttpClient,
+    public fireStorage:AngularFireStorage
   ) {
 
   }
 
+  async onFileChanged($event:any) {
+    const file = $event.target.files[0];
+    if (file) {
+      const filePath = `${this.basePath}/${file.name}`;  // path at which image will be stored in the firebase storage
+      this.task = this.fireStorage.upload(filePath, file);    // upload task
+
+      this.progressValue = this.task.percentageChanges();       // <<<<< Percentage of uploading is given
+      (await this.task).ref.getDownloadURL().then(url => { 
+        if(this.downloadableURL == '' && this.downloadableURL2 == ''){
+          this.downloadableURL = url;
+        }else if(this.downloadableURL != '' && this.downloadableURL2 == ''){
+          this.downloadableURL2 = url;
+        }      
+      });  // <<< url is found here
+    } else {
+      this.downloadableURL = '';
+    }
+  }
+
   ngOnInit(): void {
+    this.downloadableURL = '';  
+    this.downloadableURL2 = '';
     this.getEspecialidades();
     this.route.params.subscribe((params:Params)=>this.tipoRegistro = params.tipoRegistro);
     console.log(this.tipoRegistro);
@@ -62,7 +103,8 @@ export class RegistroComponent implements OnInit {
       'dni':['',Validators.required],
       'email':['',[Validators.required,Validators.email]],
       'contraseña':['',Validators.required],
-      'foto':['',Validators.required]
+      'foto':['',Validators.required],
+      'reCaptcha':['',Validators.required]
     });
   }
 
@@ -75,7 +117,8 @@ export class RegistroComponent implements OnInit {
       'email':['',[Validators.required,Validators.email]],
       'contraseña':['',Validators.required],
       'especialidad':['',Validators.required],
-      'foto':['',Validators.required]
+      'foto':['',Validators.required],
+      'reCaptcha':['',Validators.required]
     });
   }
   
@@ -89,7 +132,8 @@ export class RegistroComponent implements OnInit {
       'contraseña':['',Validators.required],
       'obraSocial':['',Validators.required],
       'foto':['',Validators.required],
-      'fotoDos':['',Validators.required]
+      'fotoDos':['',Validators.required],
+      'reCaptcha':['',Validators.required]
     });
   }
 
@@ -136,15 +180,24 @@ export class RegistroComponent implements OnInit {
   } 
 
   createAdministrador(){
-    return null;
+    return new Administradores(
+      this.formGroup.getRawValue()['nombre'],
+      this.formGroup.getRawValue()['apellido'],
+      this.formGroup.getRawValue()['edad'],
+      this.formGroup.getRawValue()['dni'],
+      this.downloadableURL,
+      this.formGroup.getRawValue()['email'],
+      this.formGroup.getRawValue()['contraseña']
+    );
   }
+
   createEspecialista(){
     return new Especialistas(
       this.formGroup.getRawValue()['nombre'],
       this.formGroup.getRawValue()['apellido'],
       this.formGroup.getRawValue()['edad'],
       this.formGroup.getRawValue()['dni'],
-      this.formGroup.getRawValue()['foto'],
+      this.downloadableURL,
       this.formGroup.getRawValue()['especialidad'],
       this.formGroup.getRawValue()['email'],
       this.formGroup.getRawValue()['contraseña'],
@@ -158,14 +211,14 @@ export class RegistroComponent implements OnInit {
       this.formGroup.getRawValue()['apellido'],
       this.formGroup.getRawValue()['edad'],
       this.formGroup.getRawValue()['dni'],
-      this.formGroup.getRawValue()['foto'],
-      this.formGroup.getRawValue()['fotoDos'],
+      this.downloadableURL, 
+      this.downloadableURL2,
       this.formGroup.getRawValue()['obraSocial'],
       this.formGroup.getRawValue()['email'],
       this.formGroup.getRawValue()['contraseña']
     );
   }
-  
+
   private spaceValidator(control: AbstractControl): null | object {
     const nombre = <string> control.value;
     const espacios = nombre.includes(' ');

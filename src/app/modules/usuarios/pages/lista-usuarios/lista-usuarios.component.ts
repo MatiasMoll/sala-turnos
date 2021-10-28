@@ -35,6 +35,7 @@ export class ListaUsuariosComponent implements OnInit, OnDestroy {
   changeEstado(usuario,isEnabled){
     usuario.enabled = isEnabled;
   }
+  
   ngOnInit(): void {
     this.seEjecutoOnInit = true;
     this.listIds = new Array<String>();

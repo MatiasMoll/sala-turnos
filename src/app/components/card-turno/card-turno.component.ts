@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Turno } from 'src/app/modelos/Turno/turno';
+import { Turno,EstadoTurno } from 'src/app/modelos/Turno/turno';
+import { IngresoService } from 'src/app/services/ingreso/ingreso.service';
+import { TurnoService } from 'src/app/services/turno/turno.service';
 
 @Component({
   selector: 'app-card-turno',
@@ -8,21 +10,22 @@ import { Turno } from 'src/app/modelos/Turno/turno';
 })
 export class CardTurnoComponent implements OnInit {
 
-  @Input() turnoAMostrar:Turno;
-  public estado:String;
-
-  
-  constructor() { }
+  @Input() turnoAMostrar:Turno;  
+  constructor(
+    public ingresoService:IngresoService,
+    public turnoService:TurnoService
+  ) {
+      
+  }
 
   ngOnInit(): void {
     console.log(this.turnoAMostrar);
-    if(this.turnoAMostrar.realizado){
-      this.estado = 'Finalizado';
-    }else if(!this.turnoAMostrar.realizado && !this.turnoAMostrar.cancelado){
-      this.estado = 'Agendado';
-    }else if(!this.turnoAMostrar.realizado && this.turnoAMostrar.cancelado){
-      this.estado = 'Cancelado';
-    }
   }
+
+  cambiarEstado($event){
+    console.log($event.target.id);
+    this.turnoService.updateTurno(this.turnoAMostrar.idDocumento,$event.target.id);
+  }
+
 
 }

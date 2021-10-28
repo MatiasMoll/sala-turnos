@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { Administradores } from 'src/app/modelos/administradores/administradores';
 import { Especialistas } from 'src/app/modelos/especialistas/especialistas';
 import { Pacientes } from 'src/app/modelos/pacientes/pacientes';
+import Swal from 'sweetalert2';
 //import { NavBarComponent } from '../components/nav-bar/nav-bar.component';
 
 @Injectable({
@@ -83,8 +84,24 @@ export class IngresoService {
                 this.subscritoA = this.checkIfLoginAdministrador(name,result);
             })
             .catch((res)=>{
-                alert(res);
-                this.router.navigate(['error']);  
+                let titulo = 'Error';
+                let mensaje = res;
+                switch (res) {
+                    case 'Error: There is no user record corresponding to this identifier. The user may have been deleted':
+                        titulo = 'El usuario no existe'
+                        mensaje = 'No se ha registrado en nuestra aplicacion este email';
+                        break;
+                    case 'Error: The password is invalid or the user does not have a password':
+                        titulo = 'Combinacion invalida';
+                        mensaje = 'Combinacion email/contraseña invalidos';
+                        break;
+                }
+                Swal.fire({
+                    title: titulo,
+                    text: mensaje,
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
             });      
     }
   
@@ -101,9 +118,27 @@ export class IngresoService {
                     this.addAdministrador(nuevoUsuario);
                 }
                 IngresoService.showSpinner = false;
+                Swal.fire({
+                    title: 'Confirmado!',
+                    text: 'Se ha creado un usuario para el mail ' + nuevoUsuario.mail,
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                });
                 this.router.navigate(['bienvenido']);
                 this.afAuth.currentUser.then(u => u.sendEmailVerification());
-        })
+        }).catch((res)=>{
+            var mensaje = 'El email ya esta registrado con otro usuario';
+            if(res.code != "auth/email-already-in-use"){
+                mensaje = res;
+            }
+            Swal.fire({
+                title: 'Error al registrarse',
+                text: mensaje,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            });
+            throw Error();
+        });
     }
 
     //Especialistas
@@ -113,6 +148,10 @@ export class IngresoService {
 
     addEspecialsita(especialista){
         this.EspecialistasRef.add({...especialista});
+    }
+
+    getEspecialistaPorEspecialidad(nombreEspecialidad):AngularFirestoreCollection<Especialistas>{
+        return this.db.collection(this.especialistas,ref => ref.where('especialidad','array-contains',nombreEspecialidad));
     }
 
     checkIfLoginEspecialista(name,result){
@@ -125,7 +164,21 @@ export class IngresoService {
                 this.isLogged = true;
                 this.UsuariosRef.add({email:name,logged:Date.now()});
                 this.router.navigate(['home']);
-            }else{
+            }else if(this.especialistaLogeado != null && !this.especialistaLogeado.enabled && result.user.emailVerified){ 
+                Swal.fire({
+                    title: 'Cuenta no habilitada!',
+                    text: 'Su cuenta esta inhabilitada, contacte con un administrador para habilitarla',
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                  });
+                throw new Error('Mail no verificado');
+            }else if(this.especialistaLogeado != null && !result.user.emailVerified){
+                Swal.fire({
+                    title: 'Email no verificado!',
+                    text: 'Por favor, antes de intentar iniciar sesion verifique su mail',
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
                 throw new Error('Mail no verificado');
             }
         }))).subscribe();
@@ -158,8 +211,14 @@ export class IngresoService {
                 this.isLogged = true;
                 this.UsuariosRef.add({email:name,logged:Date.now()});
                 this.router.navigate(['home']);
-            }else{
-                throw new Error('Mail no verificado');
+            }else if(this.especialistaLogeado != null && !result.user.emailVerified){
+                Swal.fire({
+                    title: 'Email no verificado!',
+                    text: 'Por favor, antes de intentar iniciar sesion verifique su mail',
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+                throw Error();
             }
         }))).subscribe();
     }
@@ -187,8 +246,14 @@ export class IngresoService {
                 this.isLogged = true;
                 this.UsuariosRef.add({email:name,logged:Date.now()});
                 this.router.navigate(['home']);
-            }else{
-                throw new Error('Mail no verificado');
+            }else if(this.especialistaLogeado != null && !result.user.emailVerified){
+                Swal.fire({
+                    title: 'Email no verificado!',
+                    text: 'Por favor, antes de intentar iniciar sesion verifique su mail',
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                  });
+                  throw Error();
             }
         }))).subscribe();
     }
@@ -196,6 +261,9 @@ export class IngresoService {
     logout(){
         
         this.afAuth.signOut().then(() =>{
+            this.pacienteLogeado = null;
+            this.administradorLogeado = null;
+            this.especialistaLogeado = null;
             this.subscritoP.unsubscribe();
             this.subscritoA.unsubscribe();
             this.subscritoE.unsubscribe();
