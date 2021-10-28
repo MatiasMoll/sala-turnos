@@ -151,16 +151,17 @@ export class RegistroComponent implements OnInit {
         })
       })
     ).subscribe();
+
   }
 
-  agregarEsp(){
-    console.log(this.formGroup.controls['especialidad'].value);
-    if(this.formGroup.controls['especialidad'].value == 'agregar'){
-      this.seAgregoEsp = true;
-    }else{
-      this.seAgregoEsp = false;
-    }
-  }
+  // agregarEsp(){
+  //   console.log(this.formGroup.controls['especialidad'].value);
+  //   if(this.formGroup.controls['especialidad'].value == 'Agregar una especialidad'){
+  //     this.seAgregoEsp = true;
+  //   }else{
+  //     this.seAgregoEsp = false;
+  //   }
+  // }
 
   registroWithEmailAndPassword(){
   
@@ -176,6 +177,7 @@ export class RegistroComponent implements OnInit {
   }
 
   seCreoNuevaEspecialidad($event){
+    this.seAgregoEsp = false;
     this.especialidadesService.create($event);
   } 
 

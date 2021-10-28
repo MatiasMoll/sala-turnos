@@ -36,12 +36,12 @@
         </div>
         <div class="col-md-12 mb-5">
           <label for="foto" class="form-label">Foto Perfil Uno</label>
-          <input type="file" accept="image/png,image/jpeg" class="form-control" id="foto" placeholder="Ingrese foto" formControlName="foto" (change)="onFileChanged($event)">
+          <input type="file" accept="image/png,image/jpeg, image/jfif" class="form-control" id="foto" placeholder="Ingrese foto" formControlName="foto" (change)="onFileChanged($event)">
           <small class="invalid" *ngIf="formGroup.get('foto').errors?.required && formGroup.get('foto').touched ">La foto es requerida</small>
         </div>
         <div *ngIf="tipoRegistro == 'paciente'"class="col-md-12 mb-5">
           <label for="fotoDos" class="form-label">Foto Perfil Dos</label>
-          <input type="file" accept="image/png,image/jpeg" class="form-control" id="fotoDos" placeholder="Ingrese foto" formControlName="fotoDos" (change)="onFileChanged($event)">
+          <input type="file" accept="image/png,image/jpeg, image/jfif" class="form-control" id="fotoDos" placeholder="Ingrese foto" formControlName="fotoDos" (change)="onFileChanged($event)">
           <small class="invalid" *ngIf="formGroup.get('fotoDos').errors?.required && formGroup.get('fotoDos').touched ">La foto es requerida</small>
         </div>
         <div *ngIf="tipoRegistro == 'paciente'" class="col-md-12 mb-5">
@@ -71,6 +71,9 @@
               >
             </ng-multiselect-dropdown>
     
+          </div>
+          <div class="col-md-12 mb-5">
+            <button type="button"class="btn btn-outline-info btn-sm" (click)="seAgregoEsp = true">Agregar una especialidad </button>
           </div>
         </div>
         <re-captcha

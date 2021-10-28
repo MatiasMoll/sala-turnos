@@ -35,6 +35,18 @@
           <hr />
           <!--<a (click)="saveSettings()" class="btn btn-primary btn-block">Guardar</a>-->
         </div>
+        <div class="col-md-3"  *ngIf="tipoUsuario == 'Especialista'">
+        
+        </div>
+        <div class="col-md-9" *ngIf="tipoUsuario == 'Especialista'">
+          <div>
+            <label fixed>Especialidades</label>
+            <div *ngFor="let esp of usuarioLogeado.especialidad">
+              <h5 type="text" class="form-control">{{esp}}</h5>
+            </div>
+            
+          </div>
+        </div>
       </div>
     </div>
   </div>
