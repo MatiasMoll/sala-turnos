@@ -2,7 +2,7 @@ import { trigger, transition, style, query, animateChild, animate,group } from "
 
 export const slideInAnimation =
   trigger('routeAnimations', [
-    transition('HomePage <=> MiPerfilPage', [
+    transition('HomePage <=> *', [
       style({ position: 'relative' }),
       query(':enter, :leave', [
         style({
@@ -26,7 +26,7 @@ export const slideInAnimation =
       ]),
       query(':enter', animateChild()),
     ]),
-    transition('HomePage <=> AltaTurnoPage', [
+    transition('* <=> HomePage', [
       style({ position: 'relative' }),
       query(':enter, :leave', [
         style({
@@ -37,7 +37,7 @@ export const slideInAnimation =
         })
       ]),
       query(':enter', [
-        style({ left: '-100%' })
+        style({ left: '100%' })
       ]),
       query(':leave', animateChild()),
       group([
