@@ -8,13 +8,15 @@ import { ModalAgregarEspecialidadComponent } from './modal-agregar-especialidad/
 import { RecaptchaModule, RecaptchaFormsModule, RECAPTCHA_SETTINGS } from 'ng-recaptcha';
 import { MatButtonModule } from '@angular/material/button';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { ShowFabButtonsComponent } from 'src/app/components/show-fab-buttons/show-fab-buttons.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegistroComponent,
-    ModalAgregarEspecialidadComponent
+    ModalAgregarEspecialidadComponent,
+    ShowFabButtonsComponent
   ],
   imports: [
     CommonModule,

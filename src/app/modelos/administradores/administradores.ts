@@ -6,6 +6,7 @@ export class Administradores {
     public fotoUno;
     public mail;
     public pass;
+    public idDocumento = null;
   
 
     constructor(n,ln,a,d,po,m,p){

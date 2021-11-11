@@ -1,0 +1,8 @@
+<div *ngFor="let usr of arrayUsuarios" class="d-inline-block ">
+    <button mat-fab class="kc_fab_main_btn" style="background-image: url({{usr.fotoUno}}); background-size:cover;" (click)="emitirUsuarioSelected(usr)">
+        <p class="centered">{{usr.apellido}}</p>
+        <!-- <img src="{{usr.fotoUno}}" height="35px" width="40px"> -->
+    </button>
+</div>
+
+

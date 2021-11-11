@@ -1,18 +1,10 @@
 <h1>Mis Turnos</h1>
 <div class="row" style="width: 50%;">
-    <div class="col-md-6 mb-3" *ngIf="tipoUsuario == 'paciente'; else isEspecialista">
+    <div class="col-md-6 mb-3">
         <label for="filtroEspecialidad">Filtrar:</label>
         <br>
         <input type="text" id="filtroEspecialidad" placeholder="Buscar..." [(ngModel)]="filtro"> 
-    </div>
-    <ng-template #isEspecialista>
-        <div class="col-md-6 mb-3">
-            <label for="filtroPaciente">Filtrar:</label>
-            <br>
-            <input type="text" id="filtroPaciente" placeholder="Buscar..." [(ngModel)]="filtro"> 
-        </div>
-    </ng-template>
-    
+    </div>    
 </div>
 <div *ngIf="this.listTurnos != null">
     <div class="row" *ngFor="let turno of listTurnos | filtro: filtro">

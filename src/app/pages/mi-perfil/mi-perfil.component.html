@@ -33,18 +33,51 @@
             <h5 type="text" class="form-control">{{tipoUsuario}}</h5>
           </div>
           <hr />
-          <!--<a (click)="saveSettings()" class="btn btn-primary btn-block">Guardar</a>-->
         </div>
-        <div class="col-md-3"  *ngIf="tipoUsuario == 'Especialista'">
-        
+        <div class="col-md-9" *ngIf="this.ingresoService.pacienteLogeado != null">
+          <app-mostrar-historia [usuarioAMostrar]="this.ingresoService.pacienteLogeado"></app-mostrar-historia>
         </div>
-        <div class="col-md-9" *ngIf="tipoUsuario == 'Especialista'">
+        <div class="col-md-3" *ngIf="tipoUsuario == 'Especialista'">
           <div>
             <label fixed>Especialidades</label>
-            <div *ngFor="let esp of usuarioLogeado.especialidad">
-              <h5 type="text" class="form-control">{{esp}}</h5>
+            <select class="form-select" id="sexo" [(ngModel)]="especialidadSeleccionada">
+              <option value="">--Seleccione uno--</option>
+              <option *ngFor="let esp of usuarioLogeado.especialidad" value="{{esp}}" > {{esp}}</option>              
+            </select> 
+
+          </div>
+        </div>
+        <div class="col-md-3" *ngIf="tipoUsuario == 'Especialista' && especialidadSeleccionada != ''">
+          <div>
+            <label fixed>Seleccionar Dias</label>
+            <ng-multiselect-dropdown
+              id='especialidades'
+              [placeholder]="'Seleccione una especialidad'"
+              [settings]='dropdownSettings'
+              [data]='diasSemana'
+              [(ngModel)]='diasSeleccionados'
+            >
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+        <div class="col-md-6" *ngIf="tipoUsuario == 'Especialista' && especialidadSeleccionada != ''">
+          <div>
+            <label fixed>Desde / Hasta</label>
+            <div class="row">
+            <div class="col-md-6 mb-3">
+              <input type="number" class="form-control" id="nombre" [(ngModel)]="horaInicio" placeholder="Ingrese hora de ingreso" min=8 max=24>
+              <input type="number" class="form-control" id="nombre" [(ngModel)]="minutosInicio" placeholder="Ingrese hora de ingreso" min=00 max=60>
             </div>
-            
+            <div class="col-md-6 mb-3">
+              <input type="number" class="form-control" id="apellido" [(ngModel)]="horaFinal" placeholder="Ingrese hora de egreso" min=8 max=24>
+              <input type="number" class="form-control" id="apellido" [(ngModel)]="minutosFinal" placeholder="Ingrese hora de egreso" min=00 max=60>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <button type="button" class="btn btn-success" (click)="showHorarios()">Guardar horario</button>
+            </div>
+          </div>
           </div>
         </div>
       </div>

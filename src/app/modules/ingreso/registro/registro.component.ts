@@ -69,6 +69,7 @@ export class RegistroComponent implements OnInit {
       this.progressValue = this.task.percentageChanges();       // <<<<< Percentage of uploading is given
       (await this.task).ref.getDownloadURL().then(url => { 
         if(this.downloadableURL == '' && this.downloadableURL2 == ''){
+          console.log(url);
           this.downloadableURL = url;
         }else if(this.downloadableURL != '' && this.downloadableURL2 == ''){
           this.downloadableURL2 = url;
@@ -176,9 +177,13 @@ export class RegistroComponent implements OnInit {
     this.auth.registroWithEmailAndPassword(this.nuevoPaciente != null ? this.nuevoPaciente : this.nuevosEspecialista != null ? this.nuevosEspecialista : this.nuevoAdmisnitrador);
   }
 
-  seCreoNuevaEspecialidad($event){
+  seCreoNuevaEspecialidad(event){
     this.seAgregoEsp = false;
-    this.especialidadesService.create($event);
+    let newEsp = {
+      especialidad:event,
+      foto: 'https://firebasestorage.googleapis.com/v0/b/tpturnos-1d5ee.appspot.com/o/images%2Fespecialidades.jfif?alt=media&token=671c7324-b7c1-4e5e-9b72-2cb2faf93c97'
+    };
+    this.especialidadesService.create(newEsp);
   } 
 
   createAdministrador(){

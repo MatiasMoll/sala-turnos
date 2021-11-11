@@ -20,6 +20,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
 import { FiltroPipe } from './pipes/filtro.pipe';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { TablaEspecialidadesComponent } from './components/tabla-especialidades/tabla-especialidades.component';
+import { TablaHorariosComponent } from './components/tabla-horarios/tabla-horarios.component';
+import { TablaEspecialistasComponent } from './components/tabla-especialistas/tabla-especialistas.component';
+import { ChangeFormatDatePipe } from './pipes/change-format-date.pipe';
+import { ShowFabButtonsComponent } from './components/show-fab-buttons/show-fab-buttons.component';
+import { CrearHistoriaComponent } from './pages/crear-historia/crear-historia.component';
+import { MostrarHistoriaComponent } from './components/mostrar-historia/mostrar-historia.component';
 
 
 
@@ -34,7 +41,13 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     CardTurnoComponent,
     AltaTurnoComponent,
     MiPerfilComponent,
-    FiltroPipe
+    FiltroPipe,
+    TablaEspecialistasComponent,
+    TablaEspecialidadesComponent,
+    TablaHorariosComponent,
+    ChangeFormatDatePipe,
+    CrearHistoriaComponent,
+    MostrarHistoriaComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +58,8 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     HttpClientModule,
     AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgMultiSelectDropDownModule.forRoot()
     
   ],
   providers: [],

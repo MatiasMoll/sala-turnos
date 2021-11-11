@@ -67,7 +67,7 @@ export class ListaUsuariosComponent implements OnInit, OnDestroy {
     for(let i = 0 ; i < this.listaUsuarios.length ; i++){
       if('especialidad' in this.listaUsuarios[i]){
         console.log(this.listaUsuarios[i]);
-        this.ingresoService.updateEspecialista(this.listIds[i],(<Especialistas>this.listaUsuarios[i]).enabled);
+        this.ingresoService.updateEspecialista(this.listIds[i],{enabled:(<Especialistas>this.listaUsuarios[i]).enabled});
       }
     }
   }

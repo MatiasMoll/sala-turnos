@@ -14,10 +14,10 @@ import { MisTurnosComponent } from './pages/mis-turnos/mis-turnos.component';
 const routes: Routes = [
   {path:'',redirectTo:'bienvenido',pathMatch:'full'},
   {path:'bienvenido',component:BienvenidoComponent},
-  {path:'home',component:HomeComponent,canActivate:[IsLoggedUserGuard]},
+  {path:'home',component:HomeComponent,canActivate:[IsLoggedUserGuard],data:{animation: 'HomePage'}},
   {path:'mis-turnos',component:MisTurnosComponent},
-  {path:'miPerfil',component:MiPerfilComponent,canActivate:[IsLoggedUserGuard]},
-  {path:'altaTurno',component:AltaTurnoComponent},
+  {path:'miPerfil',component:MiPerfilComponent,canActivate:[IsLoggedUserGuard],data:{animation: 'MiPerfilPage'}},
+  {path:'altaTurno',component:AltaTurnoComponent, data:{animation: 'AltaTurnoPage'}},
   {path:'ingreso',loadChildren: () => import('./modules/ingreso/ingreso.module').then(m => IngresoModule) },
   {path:'usuarios',loadChildren: () => import('./modules/usuarios/usuarios.module').then(m => UsuariosModule),canActivate:[IsLoggedAdminGuard] },
   {path:'**',redirectTo:'bienvenido',pathMatch:'full'}

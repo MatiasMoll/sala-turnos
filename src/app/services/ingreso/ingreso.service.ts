@@ -142,6 +142,7 @@ export class IngresoService {
     }
 
     //Especialistas
+   
     getEspecilista(mail):AngularFirestoreCollection<Especialistas>{
         return this.db.collection(this.especialistas,ref => ref.where('mail','==',mail))
     }
@@ -156,7 +157,13 @@ export class IngresoService {
 
     checkIfLoginEspecialista(name,result){
         return this.getEspecilista(name).snapshotChanges().pipe(map(data => data.map(usr =>{
-            this.especialistaLogeado = usr.payload.doc.data()
+            this.especialistaLogeado = usr.payload.doc.data();
+            if(this.especialistaLogeado.idDocumento == null){
+                this.especialistaLogeado.idDocumento = usr.payload.doc.id;
+                this.updateEspecialista(usr.payload.doc.id,{idDocumento: usr.payload.doc.id });
+            }
+           
+
             if(this.especialistaLogeado != null && this.especialistaLogeado.enabled && result.user.emailVerified){
                 IngresoService.iudUserLogged = result.user.uid;
                 IngresoService.userNameLogged = name;
@@ -188,10 +195,11 @@ export class IngresoService {
         return this.EspecialistasRef;
     }
 
-    updateEspecialista(id,enabledAccount){
+    updateEspecialista(id,nombreCampo){
         console.log('name  '+ id);
-        this.db.collection(this.especialistas).doc(id).update({enabled: enabledAccount});
+        this.db.collection(this.especialistas).doc(id).update(nombreCampo);
     }
+
     //Pacientes
     addPaciente(paciente){
         this.PacientesRef.add({...paciente});
@@ -203,7 +211,9 @@ export class IngresoService {
 
     checkIfLoginPaciente(name,result){
         return this.getPaciente(name).snapshotChanges().pipe(map(data =>data.map(usr => {
-            this.pacienteLogeado = usr.payload.doc.data()
+            this.pacienteLogeado = usr.payload.doc.data();
+            this.pacienteLogeado.idDocumento = usr.payload.doc.id;
+            console.log(this.pacienteLogeado);
             if(result.user.emailVerified && this.pacienteLogeado){
                 IngresoService.iudUserLogged = result.user.uid;
                 IngresoService.userNameLogged = name;
@@ -211,7 +221,7 @@ export class IngresoService {
                 this.isLogged = true;
                 this.UsuariosRef.add({email:name,logged:Date.now()});
                 this.router.navigate(['home']);
-            }else if(this.especialistaLogeado != null && !result.user.emailVerified){
+            }else if(this.pacienteLogeado != null && !result.user.emailVerified){
                 Swal.fire({
                     title: 'Email no verificado!',
                     text: 'Por favor, antes de intentar iniciar sesion verifique su mail',
@@ -238,7 +248,8 @@ export class IngresoService {
 
     checkIfLoginAdministrador(name,result){
         return this.getAdministrador(name).snapshotChanges().pipe(map(data => data.map(usr =>{
-            this.administradorLogeado = usr.payload.doc.data()
+            this.administradorLogeado = usr.payload.doc.data();
+            this.administradorLogeado.idDocumento = usr.payload.doc.id;
             if(this.administradorLogeado != null){
                 IngresoService.iudUserLogged = result.user.uid;
                 IngresoService.userNameLogged = name;

@@ -8,6 +8,7 @@ export class Pacientes {
     public obraSocial;
     public mail;
     public pass;
+    public idDocumento = null;
 
 
     

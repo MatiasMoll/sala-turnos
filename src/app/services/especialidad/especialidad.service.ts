@@ -25,7 +25,7 @@ export class EspecialidadService {
   }
 
   create(especialidad: any): any {
-    return this.EspecialidadesRef.add({especialidad });
+    return this.EspecialidadesRef.add({...especialidad });
   }
 
 }

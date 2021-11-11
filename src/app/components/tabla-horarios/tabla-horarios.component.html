@@ -1,0 +1,10 @@
+<div class="card-header py-3">
+    <h4 class="my-0 fw-normal">Horarios Disponibles</h4>
+  </div>
+  <div class="card-body" style="padding:0%;" *ngIf="listHorarios">
+    <div class="d-inline-block" *ngFor="let horario of listHorarios">
+      <input type="button" class="btn btn-primary btn-sm" style="width: auto; margin:10px;" [value]="horario | changeFormatDate" (click)="emitirHorario(horario)">
+    </div>
+    <br>
+    <button type="button" class="btn btn-cs btn-success" (click)="pedirAlta()" *ngIf="seElegigioHorario">Perdir Turno</button>
+  </div>

@@ -1,5 +1,5 @@
 
-<div>
+<!-- <div>
     <form >
         <div class="row">
             <div class="col-md-12 mb-5">
@@ -21,10 +21,20 @@
             <select class="form-select" id="especialidades" [(ngModel)]="medico" name="especialistas">
                 <option value="">--Seleccione uno--</option>
                 <option *ngFor="let esp of especialistaPorEspecialidad" value="{{esp.mail}}"> {{esp.nombre}} {{esp.apellido}}</option>              
-            </select>
+            </select> -->
             <!--<small class="invalid" *ngIf="formGroup.get('Especialista').errors?.required && formGroup.get('Especialista').touched">El Especialista es requerido</small>
             <small class="invalid" *ngIf="formGroup.get('Especialista').errors?.contieneEspacios && formGroup.get('Especialista').touched">El Especialista no puede tener espacios</small>-->
-        </div>
+        <!-- </div>
+        <div class="col-md-6 mb-3" *ngIf="this.ingresoService.administradorLogeado">
+            <label for="nombre" class="form-label">Paciente</label>
+
+            <select class="form-select" id="pacientes" [(ngModel)]="pacienteElegido" (change)="handleChange($event)"name="pacientes">
+                <option value="">--Seleccione uno--</option>
+                <option *ngFor="let pac of pacientes"> {{pac.nombre}} {{pac.apellido}}</option>              
+            </select> -->
+            <!--<small class="invalid" *ngIf="formGroup.get('Especialista').errors?.required && formGroup.get('Especialista').touched">El Especialista es requerido</small>
+            <small class="invalid" *ngIf="formGroup.get('Especialista').errors?.contieneEspacios && formGroup.get('Especialista').touched">El Especialista no puede tener espacios</small>-->
+        <!-- </div>
         <div class="row">
             <div class="col-md-12 d-grid gap-2">
             <button type="button" class="btn btn-success btn-block" (click)="darDeAltaTurno()">
@@ -36,4 +46,18 @@
     </form>
   </div>
  
+ -->
 
+ <main>
+    <div class="row justify-content-md-center">
+        <div class="col mb-4 rounded-3 shadow-sm" >
+            <app-tabla-especialidades [listEspecialidades]="especialidades" (eventoEmitirEsp)="filterEspecialistas($event)"></app-tabla-especialidades>
+        </div>
+        <div class="col mb-4 rounded-3 shadow-sm" >
+            <app-tabla-especialistas [listEspecialistas]="especialistaPorEspecialidad" (emitirEspecialista)="tomaEspYArmarHorario($event)"></app-tabla-especialistas>
+        </div>
+        <div class="col-6 mb-4 rounded-3 shadow-sm">
+            <app-tabla-horarios *ngIf="listaHorarios" [listHorarios]="listaHorarios" (horarioSeleccionado)="setHorario($event)" (sePidioTurno)="altaTurno()"></app-tabla-horarios>
+        </div>
+    </div>
+  </main>

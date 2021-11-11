@@ -1,0 +1,11 @@
+<div class="card-header py-3">
+    <h4 class="my-0 fw-normal">Especialistas</h4>
+  </div>
+  <div class="card-body" *ngIf="listEspecialistas">
+    <div class="d-inline-block container" style="margin-bottom: 2%;"*ngFor="let espe of listEspecialistas">
+      <button type="button" class="btn btn-primary btn-sm" [value]="espe.apellido" (click)="emitirEspecialistaSelect(espe)">
+        <img src="{{espe.fotoUno}}" style="width: 100%; height: 15%;">
+        <p class="centered">{{espe.nombre}} {{espe.apellido}}</p>
+      </button>
+  </div>
+</div>

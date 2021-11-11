@@ -1,0 +1,40 @@
+<div class="container">
+    <form [formGroup]="formGroup" (ngSubmit)="crearHistoriaMedica()">
+      <div class="row">
+        <div class="col-md-12 mb-5">
+          <h2>Crear Historia Medica</h2>
+        </div>
+      </div>
+      <div class="row formulario">
+            <div class="col-md-12 mb-5">
+                <label for="altura" class="form-label">Altura</label>
+                <input type="altura" class="form-control" id="altura" placeholder="Ingrese altura" formControlName="altura">
+                <small class="invalid" *ngIf="formGroup.get('altura').errors?.required && formGroup.get('altura').touched ">La altura es requerido</small>
+            </div>
+            <div class="col-md-12 mb-5">
+                <label for="peso" class="form-label">Peso</label>
+                <input type="peso" class="form-control" id="peso" placeholder="Ingrese peso" formControlName="peso">
+                <small class="invalid" *ngIf="formGroup.get('peso').errors?.required && formGroup.get('peso').touched ">El peso es requerido</small>
+            </div>
+            <div class="col-md-12 mb-5">
+                <label for="temperatura" class="form-label">Temperatura</label>
+                <input type="temperatura" class="form-control" id="temperatura" placeholder="Ingrese temperatura" formControlName="temperatura">
+                <small class="invalid" *ngIf="formGroup.get('temperatura').errors?.required && formGroup.get('temperatura').touched ">La temperatura es requerido</small>
+            </div>
+            <div class="col-md-12 mb-5">
+                <label for="presion" class="form-label">Presión</label>
+                <input type="presion" class="form-control" id="presion" placeholder="Ingrese presion" formControlName="presion">
+                <small class="invalid" *ngIf="formGroup.get('presion').errors?.required && formGroup.get('presion').touched ">La presion es requerido</small>
+            </div>
+        </div>
+  
+        <div class="row">
+          <div class="col-md-12 d-grid gap-2">
+            <button type="submit" class="btn btn-success btn-block" [disabled]="formGroup.invalid">
+              Registrarse
+            </button>
+            <button routerLink='/home' type="button" class='btn btn-primary'  *ngIf="!this.auth.isLogged" >Volver al home</button>
+          </div>
+      </div>
+    </form>
+  </div>
