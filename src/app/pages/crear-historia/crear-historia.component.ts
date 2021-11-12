@@ -58,7 +58,7 @@ export class CrearHistoriaComponent implements OnInit {
     this.usuarioADarAlta.historia = JSON.parse(JSON.stringify(this.historia));
     this.ingresoService.updatePaciente(this.usuarioADarAlta.idDocumento,{historia:JSON.parse(JSON.stringify(this.historia))});
     this.historiaService.darDeAltaHistoria(this.historia);
-    this.emitCerrarAlta.emit();
+  
   }
   // createPaciente(){
   //   return new Pacientes(

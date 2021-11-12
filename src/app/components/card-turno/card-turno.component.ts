@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Turno,EstadoTurno } from 'src/app/modelos/Turno/turno';
 import { IngresoService } from 'src/app/services/ingreso/ingreso.service';
 import { TurnoService } from 'src/app/services/turno/turno.service';
@@ -8,27 +8,34 @@ import { TurnoService } from 'src/app/services/turno/turno.service';
   templateUrl: './card-turno.component.html',
   styleUrls: ['./card-turno.component.css']
 })
-export class CardTurnoComponent implements OnInit {
+export class CardTurnoComponent implements OnInit,OnChanges {
 
   @Input() turnoAMostrar:Turno; 
-  public altaHistoria = false; 
+  public altaHistoria; 
   constructor(
     public ingresoService:IngresoService,
     public turnoService:TurnoService
   ) {
-      
+
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if(this.turnoAMostrar.estado == EstadoTurno.Finalizado && this.turnoAMostrar.paciente.historia.length == 0 ){
+      this.altaHistoria = true;
+    }
+  }
   ngOnInit(): void {
     console.log(this.turnoAMostrar);
+    this.altaHistoria = false;
   }
 
   cambiarEstado(event){
     console.log(event.target.id);
-    this.turnoService.updateTurno(this.turnoAMostrar.idDocumento,event.target.id);
     if(event.target.id == 'Finalizado'){
       this.altaHistoria = true;
     }
+    this.turnoService.updateTurno(this.turnoAMostrar.idDocumento,event.target.id);
+   
     
   }
 

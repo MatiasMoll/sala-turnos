@@ -21,11 +21,11 @@
                 <button *ngIf="turnoAMostrar.comentario != ''" class="botonAccion btn btn-success">Ver Reseña</button>
             </div>
             <div *ngIf="this.ingresoService.administradorLogeado">
-                <button id="Finalizado" *ngIf="turnoAMostrar.estado == 'Pedido'" (click)="cambiarEstado($event)" class="botonAccion btn btn-warning">Cancelar</button>
+                <button id="Cancelado" *ngIf="turnoAMostrar.estado == 'Pedido'" (click)="cambiarEstado($event)" class="botonAccion btn btn-warning">Cancelar</button>
             </div>            
         </div>
     </div>
   </div>
 <div *ngIf="altaHistoria">
-    <app-crear-historia [usuarioADarAlta]="turnoAMostrar.paciente" (emitCerrarAlta)="altaHistoria = false"></app-crear-historia>
+    <app-crear-historia [usuarioADarAlta]="turnoAMostrar.paciente"></app-crear-historia>
 </div>
