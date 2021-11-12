@@ -1,3 +1,5 @@
+import { Historia } from "../historia/historia";
+
 export class Pacientes {
     public nombre;
     public apellido;
@@ -9,7 +11,7 @@ export class Pacientes {
     public mail;
     public pass;
     public idDocumento = null;
-
+    public historia:Array<Historia> = new Array<Historia>();
 
     
 

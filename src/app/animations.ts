@@ -25,7 +25,7 @@ export const slideInAnimation =
         ])
       ]),
       query(':enter', animateChild()),
-    ]),
+    ])/*,
     transition('* <=> HomePage', [
       style({ position: 'relative' }),
       query(':enter, :leave', [
@@ -49,5 +49,5 @@ export const slideInAnimation =
         ])
       ]),
       query(':enter', animateChild()),
-    ])
+    ])*/
   ]);

@@ -1,5 +1,5 @@
 
-<table class="table" *ngIf="this.listaUsuarios">
+<table class="table" *ngIf="this.listaUsuarios" [ngClass]="{'mitad':showHistoria,'todo':!showHistoria}">
     <thead>
       <tr>
         <th scope="col">Nombre</th>
@@ -9,6 +9,7 @@
         <th scope="col">Dni</th>
         <th scope="col" *ngIf="this.isEspecialista">Especialidad</th>
         <th scope="col" *ngIf="this.isEspecialista">Habilitar Cuenta</th>
+        <th scope="col" *ngIf="!this.isEspecialista">Historia Clinica</th>
       </tr>
     </thead>
     <tbody *ngFor="let user of this.listaUsuarios;let i = index">
@@ -23,8 +24,12 @@
           <div class="row">
             <button class="btn btn-danger" *ngIf="user.enabled" (click)="changeEstado(user,false)">Inhabilitar cuenta</button>
             <button class="btn btn-success" *ngIf="!user.enabled" (click)="changeEstado(user,true)">Habilitar cuenta</button>
+            <button class="btn btn-success" *ngIf="!this.isEspecialista && user.historia" (click)="showHistoriaClinica(user)">Mostrar Historia</button>
           </div>
         </td>
       </tr>
     </tbody>
 </table>
+<div *ngIf="showHistoria" class="mitad">
+  <app-mostrar-historia [usuarioAMostrar]="usuarioAMostrar" (emitirCerrarVentana)="cerrarVentana()"></app-mostrar-historia> 
+</div>

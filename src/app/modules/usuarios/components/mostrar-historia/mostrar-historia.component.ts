@@ -8,7 +8,6 @@ import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core';
   
 })
 export class MostrarHistoriaComponent implements OnInit {
-
   @Input() usuarioAMostrar;
   @Output() emitirCerrarVentana:EventEmitter<any> = new EventEmitter<any>();
   dataExtra:Array<Object> = new Array<Object>();
@@ -24,6 +23,6 @@ export class MostrarHistoriaComponent implements OnInit {
   }
 
   cerrarVentana(){
-    this.emitirCerrarVentana.emit(false);
+    this.emitirCerrarVentana.emit();
   }
 }

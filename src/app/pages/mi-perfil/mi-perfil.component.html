@@ -34,7 +34,7 @@
           </div>
           <hr />
         </div>
-        <div class="col-md-9" *ngIf="this.ingresoService.pacienteLogeado != null">
+        <div class="col-md-9" *ngIf="this.ingresoService.pacienteLogeado != null && this.ingresoService.pacienteLogeado.historia">
           <app-mostrar-historia [usuarioAMostrar]="this.ingresoService.pacienteLogeado"></app-mostrar-historia>
         </div>
         <div class="col-md-3" *ngIf="tipoUsuario == 'Especialista'">

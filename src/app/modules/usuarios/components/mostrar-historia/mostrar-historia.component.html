@@ -15,14 +15,10 @@
   <label fixed>Presion</label>
   <h5 type="text" class="form-control">{{usuarioAMostrar.historia.presion}}</h5>
 </div>
-<div *ngIf="usuarioAMostrar.historia">
+<div>
   <label fixed> Datos Adicionales</label>
   <div *ngFor="let data of dataExtra">
     <label fixed>{{data.key}}</label>
     <h5 type="text" class="form-control">{{data.data}}</h5>
   </div>  
 </div>
-<!-- <div>
-  <button type="button" class="btn btn-danger" (click)="cerrarVentana()">Cerrar Historia</button>
-</div> -->
-<hr />

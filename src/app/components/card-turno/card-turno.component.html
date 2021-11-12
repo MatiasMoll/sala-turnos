@@ -26,3 +26,6 @@
         </div>
     </div>
   </div>
+<div *ngIf="altaHistoria">
+    <app-crear-historia [usuarioADarAlta]="turnoAMostrar.paciente" (emitCerrarAlta)="altaHistoria = false"></app-crear-historia>
+</div>

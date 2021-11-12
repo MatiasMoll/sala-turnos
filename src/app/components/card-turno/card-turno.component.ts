@@ -10,7 +10,8 @@ import { TurnoService } from 'src/app/services/turno/turno.service';
 })
 export class CardTurnoComponent implements OnInit {
 
-  @Input() turnoAMostrar:Turno;  
+  @Input() turnoAMostrar:Turno; 
+  public altaHistoria = false; 
   constructor(
     public ingresoService:IngresoService,
     public turnoService:TurnoService
@@ -22,9 +23,13 @@ export class CardTurnoComponent implements OnInit {
     console.log(this.turnoAMostrar);
   }
 
-  cambiarEstado($event){
-    console.log($event.target.id);
-    this.turnoService.updateTurno(this.turnoAMostrar.idDocumento,$event.target.id);
+  cambiarEstado(event){
+    console.log(event.target.id);
+    this.turnoService.updateTurno(this.turnoAMostrar.idDocumento,event.target.id);
+    if(event.target.id == 'Finalizado'){
+      this.altaHistoria = true;
+    }
+    
   }
 
 

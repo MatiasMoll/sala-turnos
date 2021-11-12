@@ -9,7 +9,7 @@ export class FiltroPipe implements PipeTransform {
   transform(value: any, ...arg: any): unknown {
     const resultPosts = [];
     var shouldPush = false;
-   
+    
     if(arg !== undefined){
       for(const post of value){
         let objeto = JSON.parse(JSON.stringify(post));
@@ -22,10 +22,13 @@ export class FiltroPipe implements PipeTransform {
            
            for(let x of innerKey){
               let stringCampo = String(innerObject[x]);
-              if(stringCampo.indexOf(arg) > -1 && stringCampo !== undefined){
+              if(stringCampo.indexOf(arg) > -1 && stringCampo !== undefined && x!='seconds' && x != 'nanoseconds' && x != 'diasLaborales' && x != 'horariosLaborales' && x != 'idDocumento' && x != 'pass' && x != 'fotoUno' && x != 'fotoDos'){
+                console.log('*********************************');
                 console.log('campoObj ' + x);
                 console.log('campo ' + stringCampo);
                 console.log('campoObj previo ' + y);
+                console.log('argumento ' + arg);
+                console.log('*********************************');
                 shouldPush = true;
               }
             }
@@ -35,12 +38,14 @@ export class FiltroPipe implements PipeTransform {
             console.log('turno ' + objeto[y]);
             shouldPush = true;
           }
-         }       
+         }  
+ 
         }
         if(shouldPush){
           resultPosts.push(post);
-        }
+        }    
       };
+    
     }
     console.log(resultPosts);
     return resultPosts;

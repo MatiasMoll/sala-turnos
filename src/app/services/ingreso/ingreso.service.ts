@@ -205,6 +205,10 @@ export class IngresoService {
         this.PacientesRef.add({...paciente});
     }
 
+    updatePaciente(id,campo){
+        this.db.collection(this.pacientes).doc(id).update(campo);
+    }
+
     getPaciente(mail):AngularFirestoreCollection<Pacientes>{
         return this.db.collection(this.pacientes,ref => ref.where('mail','==',mail))
     }
@@ -212,7 +216,10 @@ export class IngresoService {
     checkIfLoginPaciente(name,result){
         return this.getPaciente(name).snapshotChanges().pipe(map(data =>data.map(usr => {
             this.pacienteLogeado = usr.payload.doc.data();
-            this.pacienteLogeado.idDocumento = usr.payload.doc.id;
+            if(this.pacienteLogeado.idDocumento == null){
+                this.pacienteLogeado.idDocumento = usr.payload.doc.id;
+                this.updatePaciente(usr.payload.doc.id,{idDocumento: usr.payload.doc.id });
+            }
             console.log(this.pacienteLogeado);
             if(result.user.emailVerified && this.pacienteLogeado){
                 IngresoService.iudUserLogged = result.user.uid;

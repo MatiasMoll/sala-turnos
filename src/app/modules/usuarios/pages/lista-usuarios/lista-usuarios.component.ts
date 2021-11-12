@@ -15,6 +15,8 @@ export class ListaUsuariosComponent implements OnInit, OnDestroy {
   
   public isEspecialista:boolean;
   public seEjecutoOnInit = false;
+  public showHistoria = false;
+  public usuarioAMostrar:Pacientes;
   public listIds:Array<String> ;
   public listaUsuarios:Array<Especialistas | Pacientes>;
 
@@ -32,6 +34,14 @@ export class ListaUsuariosComponent implements OnInit, OnDestroy {
     
   }
 
+  showHistoriaClinica(paciente){
+    this.showHistoria = true;
+    this.usuarioAMostrar = paciente;
+  }
+
+  cerrarVentana(){
+    this.showHistoria = false;
+  }
   changeEstado(usuario,isEnabled){
     usuario.enabled = isEnabled;
   }

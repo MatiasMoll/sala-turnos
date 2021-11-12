@@ -31,9 +31,9 @@
         <div class="row">
           <div class="col-md-12 d-grid gap-2">
             <button type="submit" class="btn btn-success btn-block" [disabled]="formGroup.invalid">
-              Registrarse
+              Guardar Historia
             </button>
-            <button routerLink='/home' type="button" class='btn btn-primary'  *ngIf="!this.auth.isLogged" >Volver al home</button>
+            <button type="button" class='btn btn-primary' (click)="cerrarModal()">Volver al home</button>
           </div>
       </div>
     </form>
