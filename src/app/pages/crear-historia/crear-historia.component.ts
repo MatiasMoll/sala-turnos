@@ -39,7 +39,7 @@ export class CrearHistoriaComponent implements OnInit {
  
 
   ngOnInit(): void {
-    this.fb.group({
+    this.formGroup = this.fb.group({
       'altura':['',[Validators.required]],
       'peso':['',Validators.required],
       'temperatura':['',[Validators.required,Validators.min(18),Validators.max(99)]],
