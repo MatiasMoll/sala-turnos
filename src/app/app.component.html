@@ -1,4 +1,4 @@
 <app-navbar *ngIf="this.ingresoService.isLogged"></app-navbar>
-<div [@routeAnimations]="prepareRoute(outlet)">
+<div [@slideInOut]="prepareRoute(outlet)">
     <router-outlet #outlet="outlet"></router-outlet>
 </div>

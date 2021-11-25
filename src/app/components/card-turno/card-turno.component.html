@@ -6,26 +6,26 @@
             <p class="card-text">El turno es para el dia: {{turnoAMostrar.horario}}</p>
             <p class="card-text">Con el doctor: {{turnoAMostrar.medico.nombre}} {{turnoAMostrar.medico.apellido}}</p>
             <p class="card-text">Para el paciente: {{turnoAMostrar.paciente.nombre}} {{turnoAMostrar.paciente.apellido}}</p>
-            <p class="card-text">El turno se ha emitido el dia: {{turnoAMostrar.pedidoEl}}</p>
+            <p class="card-text">El turno se ha emitido el dia: {{turnoAMostrar.pedidoEl | changeTimespan}} </p>
             <div *ngIf="this.ingresoService.pacienteLogeado">
-                <button id="Cancelado" class="botonAccion btn btn-danger" (click)="cambiarEstado($event)">Cancelar</button>
-                <button *ngIf="turnoAMostrar.comentario != ''" class="botonAccion btn btn-success">Ver Reseña</button>
-                <button *ngIf="turnoAMostrar.estado == 'Realizado' && turnoAMostrar.comentario != ''" class="botonAccion btn btn-primary">Completar Encuesta</button>
-                <button *ngIf="turnoAMostrar.estado == 'Realizado'" class="botonAccion btn btn-info">Calificar Atencion</button>
+                <button id="Cancelado" class="botonAccion btn btn-sm btn-danger" (click)="cambiarEstado($event)">Cancelar</button>
+                <button *ngIf="turnoAMostrar.comentario != ''" class="botonAccion btn btn-sm btn-success">Ver Reseña</button>
+                <button *ngIf="turnoAMostrar.estado == 'Realizado' && turnoAMostrar.comentario != ''" class="botonAccion btn btn-sm btn-primary">Completar Encuesta</button>
+                <button *ngIf="turnoAMostrar.estado == 'Realizado'" class="botonAccion btn btn-sm btn-info">Calificar Atencion</button>
             </div>
             <div *ngIf="this.ingresoService.especialistaLogeado">
-                <button id="Cancelado" *ngIf="turnoAMostrar.estado == 'Pedido'" (click)="cambiarEstado($event)" class="botonAccion btn btn-warning">Cancelar</button>
-                <button id="Rechazado" *ngIf="turnoAMostrar.estado == 'Pedido'" (click)="cambiarEstado($event)" class="botonAccion btn btn-danger">Rechazar</button>
-                <button id="Aceptado" *ngIf="turnoAMostrar.estado == 'Pedido'" (click)="cambiarEstado($event)" class="botonAccion btn btn-success">Aceptar</button>
-                <button id="Finalizado" *ngIf="turnoAMostrar.estado == 'Aceptado'" class="botonAccion btn btn-primary" (click)="cambiarEstado($event)"style="width:25%">Finalizar</button>  
-                <button *ngIf="turnoAMostrar.comentario != ''" class="botonAccion btn btn-success">Ver Reseña</button>
+                <button id="Cancelado" *ngIf="turnoAMostrar.estado == 'Pedido'" (click)="cambiarEstado($event)" class="botonAccion btn btn-sm btn-warning">Cancelar</button>
+                <button id="Rechazado" *ngIf="turnoAMostrar.estado == 'Pedido'" (click)="cambiarEstado($event)" class="botonAccion btn btn-sm btn-danger">Rechazar</button>
+                <button id="Aceptado" *ngIf="turnoAMostrar.estado == 'Pedido'" (click)="cambiarEstado($event)" class="botonAccion btn btn-sm btn-success">Aceptar</button>
+                <button id="Finalizado" *ngIf="turnoAMostrar.estado == 'Aceptado'" class="botonAccion btn btn-sm btn-primary" (click)="cambiarEstado($event)"style="width:25%">Finalizar</button>  
+                <button *ngIf="turnoAMostrar.comentario != ''" class="botonAccion btn btn-sm btn-success">Ver Reseña</button>
             </div>
             <div *ngIf="this.ingresoService.administradorLogeado">
-                <button id="Cancelado" *ngIf="turnoAMostrar.estado == 'Pedido'" (click)="cambiarEstado($event)" class="botonAccion btn btn-warning">Cancelar</button>
+                <button id="Cancelado" *ngIf="turnoAMostrar.estado == 'Pedido'" (click)="cambiarEstado($event)" class="botonAccion btn btn-sm btn-warning">Cancelar</button>
             </div>            
         </div>
     </div>
   </div>
-<div *ngIf="altaHistoria">
-    <app-crear-historia [usuarioADarAlta]="turnoAMostrar.paciente"></app-crear-historia>
+<div *ngIf="turnoAMostrar.estado == 'Finalizado' && !turnoAMostrar.historia && ingresoService.especialistaLogeado" >
+    <app-crear-historia [usuarioADarAlta]="turnoAMostrar.paciente" [turnoUpdate]="turnoAMostrar" [medicoMail]="turnoAMostrar.medicoEmail"></app-crear-historia>
 </div>

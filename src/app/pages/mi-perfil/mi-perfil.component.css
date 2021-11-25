@@ -17,4 +17,9 @@
   img.icon {
     width: 30px;
   }
+
+  .separacion{
+    display: inline-block;
+    margin: 2%;
+  }
   

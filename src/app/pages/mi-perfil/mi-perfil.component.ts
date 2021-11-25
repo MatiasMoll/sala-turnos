@@ -4,6 +4,11 @@ import { Especialistas } from 'src/app/modelos/especialistas/especialistas';
 import { Pacientes } from 'src/app/modelos/pacientes/pacientes';
 import { IngresoService } from 'src/app/services/ingreso/ingreso.service';
 import { HorariosEsp } from 'src/app/modelos/horariosEsp/horarios-esp';
+import { TurnoService } from 'src/app/services/turno/turno.service';
+import { Turno } from 'src/app/modelos/Turno/turno';
+import { map } from 'rxjs/operators';
+import { ArchivosService } from 'src/app/services/archivos/archivos.service';
+import { ChangeTimespanPipe } from 'src/app/pipes/change-timespan.pipe';
 
 @Component({
   selector: 'app-mi-perfil',
@@ -11,6 +16,8 @@ import { HorariosEsp } from 'src/app/modelos/horariosEsp/horarios-esp';
   styleUrls: ['./mi-perfil.component.css']
 })
 export class MiPerfilComponent implements OnInit {
+
+  public transformer = new ChangeTimespanPipe();
 
   usuarioLogeado: Especialistas | Pacientes | Administradores;
   listadoHorarios:Array<HorariosEsp>
@@ -30,8 +37,15 @@ export class MiPerfilComponent implements OnInit {
   horaFinal;
   minutosFinal;
   
+  mostrarTodos = true;
+  listTurnosTotales:Array<Turno> = new Array<Turno>();
+  listEspecialidades:Array<string> = new Array<string>();
+  listTurnosFilter:Array<Turno> = new Array<Turno>();
+
   constructor(
-    public ingresoService:IngresoService
+    public ingresoService:IngresoService,
+    public turnosService:TurnoService,
+    public fileService:ArchivosService
   ) { }
 
   ngOnInit(): void {
@@ -43,18 +57,69 @@ export class MiPerfilComponent implements OnInit {
     }else if(this.ingresoService.pacienteLogeado != null){
       this.tipoUsuario = 'Paciente';
       this.usuarioLogeado = this.ingresoService.pacienteLogeado;
+      this.turnosService.filtrarTurno('pacienteEmail',this.usuarioLogeado.mail).snapshotChanges().pipe(
+        map(datos =>{
+          datos.map(turno =>{
+            console.log(turno);
+            this.listTurnosTotales.push(turno.payload.doc.data());
+            var espTurno = turno.payload.doc.data().especialidad;
+            if(!this.listEspecialidades.includes(espTurno)){
+              this.listEspecialidades.push(espTurno);
+            }
+          })
+        })
+      ).subscribe();
     }else{
       this.tipoUsuario = 'Administrador';
       this.usuarioLogeado = this.ingresoService.administradorLogeado;
     }
 
     console.log(this.usuarioLogeado.fotoUno);
-    
+  }
+
+  filtrarTurnoYDescargar(event){
+    if(event.target.id == 'Todos'){
+      this.descargarTurno(this.listTurnosTotales);
+    }else{
+      this.listTurnosFilter = new Array<Turno>();
+      this.listTurnosTotales.filter(turno => {
+        if(turno.especialidad == event.target.id){
+          this.listTurnosFilter.push(turno);
+        }
+      })
+      this.descargarTurno(this.listTurnosFilter);
+    }
+   
   }
 
   actualizarHorarios(){
     this.ingresoService.updateEspecialista(this.usuarioLogeado.idDocumento,{diasLaborales:(<Especialistas>this.usuarioLogeado).diasLaborales});
   }
+
+  descargarTurno(arrayturnos){
+    
+    let mapData:Map<string,Array<string>> = new Map<string,Array<string>>();
+    let  json_data = [];
+    arrayturnos.map(turnoAMostrar => {
+      json_data.push({
+        estado:turnoAMostrar.estado,
+        especialista:turnoAMostrar.medico.nombre + ' ' + turnoAMostrar.medico.apellido,
+        especialistaMail:turnoAMostrar.medicoEmail,
+        especialidad:turnoAMostrar.especialidad,
+        paciente:turnoAMostrar.paciente.nombre + ' ' + turnoAMostrar.paciente.apellido,
+        pacienteMail:turnoAMostrar.paciente.mail,
+        fechaHora:turnoAMostrar.horario,
+        pedidoEl:this.transformer.transform(turnoAMostrar.pedidoEl)
+      })
+    });
+    let arrayHeader = ['Estado Turno','Nombre Especialista','Email Especialista','Especialidad','Nombre Paciente','Email paciente','Fecha y hora del turno','Fue pedido el dia '];
+    json_data.map(ele=>{
+      arrayHeader.push(JSON.stringify(ele));
+    });
+    mapData.set('Turno',arrayHeader);
+    this.fileService.crearYDescargarExcel(mapData,'Datos_Turno');
+  }
+  
 
   showHorarios(){
     // let objetoHorario = {

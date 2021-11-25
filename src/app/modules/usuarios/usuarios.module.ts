@@ -6,6 +6,8 @@ import { ListaUsuariosComponent } from './pages/lista-usuarios/lista-usuarios.co
 import { HomeUsComponent } from './pages/home-us/home-us.component';
 import { AppModule } from 'src/app/app.module';
 import { MostrarHistoriaComponent } from './components/mostrar-historia/mostrar-historia.component';
+import { CardTurnoComponent } from './components/card-turno/card-turno.component';
+import { ChangeTimespanPipe } from 'src/app/modules/usuarios/pipes/change-timespan.pipe';
 
 
 
@@ -13,7 +15,10 @@ import { MostrarHistoriaComponent } from './components/mostrar-historia/mostrar-
   declarations: [
     ListaUsuariosComponent,
     HomeUsComponent,
-    MostrarHistoriaComponent
+    MostrarHistoriaComponent,
+    CardTurnoComponent,
+    ChangeTimespanPipe
+    
   ],
   imports: [
     CommonModule,

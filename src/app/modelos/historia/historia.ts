@@ -3,5 +3,7 @@ export class Historia {
     public peso;
     public temperatura;
     public presion;
-    public randomData = {};
+    public randomData = [{key:'',value:''}];
+    public medicoMail;
+    public pacienteMail;
 }

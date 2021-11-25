@@ -7,7 +7,7 @@
     </div>    
 </div>
 <div *ngIf="this.listTurnos != null">
-    <div class="row" *ngFor="let turno of listTurnos | filtro: filtro">
+    <div class="col-md-3" style="display: inline-block;margin:2%;" *ngFor="let turno of listTurnos | filtro: filtro">
         <app-card-turno [turnoAMostrar]="turno"></app-card-turno>
     </div>
 </div>

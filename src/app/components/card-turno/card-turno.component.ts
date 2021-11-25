@@ -20,13 +20,13 @@ export class CardTurnoComponent implements OnInit,OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(this.turnoAMostrar.estado == EstadoTurno.Finalizado && this.turnoAMostrar.paciente.historia.length == 0 ){
+    
+    if(this.turnoAMostrar.estado == EstadoTurno.Finalizado && this.turnoAMostrar.paciente.historia == undefined ){
       this.altaHistoria = true;
     }
   }
   ngOnInit(): void {
-    console.log(this.turnoAMostrar);
-    this.altaHistoria = false;
+
   }
 
   cambiarEstado(event){

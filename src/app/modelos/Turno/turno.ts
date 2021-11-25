@@ -1,4 +1,5 @@
 import { Especialistas } from "../especialistas/especialistas";
+import { Historia } from "../historia/historia";
 import { Pacientes } from "../pacientes/pacientes";
 
 export class Turno {
@@ -12,13 +13,16 @@ export class Turno {
     public comentario:string = '';
     public estado:EstadoTurno = EstadoTurno.Pedido;
     public idDocumento = null;
+    public historia:Historia;
 
 }
 
+
 export enum EstadoTurno {
-    Rechazado = 'Rechazado',
-    Cancelado = 'Cancelado',
-    Aceptado = 'Aceptado',
-    Realizado = 'Realizado',
-    Pedido = 'Pedido'
+  Rechazado = 'Rechazado',
+  Cancelado = 'Cancelado',
+  Aceptado = 'Aceptado',
+  Realizado = 'Realizado',
+  Pedido = 'Pedido',
+  Finalizado = 'Finalizado'
 }

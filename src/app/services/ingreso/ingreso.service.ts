@@ -20,7 +20,7 @@ export class IngresoService {
     private pacientes = '/paciente';
     private especialistas = '/especialistas';
     private administradores = '/administradores';
-
+    private logs = '/userLogged';
 
     public administradorLogeado:Administradores;
     public especialistaLogeado: Especialistas;
@@ -40,6 +40,7 @@ export class IngresoService {
     PacientesRef: AngularFirestoreCollection<Pacientes>;
     EspecialistasRef: AngularFirestoreCollection<Especialistas>;
     AdministradoresRef:AngularFirestoreCollection<Administradores>;
+    LogRef:AngularFirestoreCollection<any>;
 
     constructor(
         public afAuth: AngularFireAuth,
@@ -50,8 +51,12 @@ export class IngresoService {
         this.UsuariosRef = db.collection(this.usersLogged);
         this.PacientesRef = db.collection(this.pacientes);
         this.EspecialistasRef = db.collection(this.especialistas);
+        this.LogRef = db.collection(this.logs);
     }
 
+    getAllLogs(){
+        return this.LogRef;   
+    }
     // Sign in with Google
     GoogleAuth() {
         return this.AuthLogin(new firebase.default.auth.GoogleAuthProvider());

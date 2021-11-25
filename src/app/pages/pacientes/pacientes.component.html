@@ -1,0 +1,12 @@
+
+<div class="card" *ngIf="mapPacienteTurnos" >
+    <div class="card-body" *ngFor="let paciente of mapPacienteTurnos.keys()">
+      <h5 class="card-title">{{paciente}}</h5>
+      <div *ngFor="let turnos of mapPacienteTurnos.get(paciente)" style="width: 30%;display: inline-block;margin-left: 3.3%;">
+        <app-show-turno-with-hc [turnoAMostrar]="turnos" (click)="showModal(turnos)"></app-show-turno-with-hc>
+      </div>
+    </div>
+</div>
+<div *ngIf="isShowModal">
+    <app-show-hc class="modal-dialog" [turnoShowHC]="turnoToShow"></app-show-hc>
+</div>

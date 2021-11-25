@@ -12,6 +12,12 @@
           <li class="nav-item" *ngIf = "this.ingresoService.administradorLogeado && this.weAreInUsuarios">
             <a class="nav-link active" aria-current="page" (click)="routeo('usuarios/listaUsuarios',true)">Especialista</a>
           </li>
+          <li class="nav-item" *ngIf = "this.ingresoService.administradorLogeado">
+            <a class="nav-link active" aria-current="page" (click)="routeo('estadisticas')">Estadisticas</a>
+          </li>
+          <li class="nav-item" *ngIf = "this.ingresoService.especialistaLogeado">
+            <a class="nav-link active" aria-current="page" (click)="routeo('pacientes')">Pacientes</a>
+          </li>
           <li class="nav-item" *ngIf = "this.ingresoService.isLogged && this.ingresoService.administradorLogeado == null">
             <a class="nav-link active" aria-current="page" (click)="routeo('mis-turnos')">Mis Turnos</a>
           </li>

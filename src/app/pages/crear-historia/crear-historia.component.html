@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="width: 75%;align-items: center;border:2px solid #0000;">
     <form [formGroup]="formGroup" (ngSubmit)="crearHistoriaMedica()">
       <div class="row">
         <div class="col-md-12 mb-5">
@@ -26,6 +26,26 @@
                 <input type="presion" class="form-control" id="presion" placeholder="Ingrese presion" formControlName="presion">
                 <small class="invalid" *ngIf="formGroup.get('presion').errors?.required && formGroup.get('presion').touched ">La presion es requerido</small>
             </div>
+            <hr/>
+            <div class="col-md-12 mb-5">
+              <h4 fixed>Datos Adicionales</h4>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label" style="margin-right: 50%;">Nombre del dato</label>
+              <label class="form-label">Valor del dato</label>
+            </div>
+            <div *ngFor="let datoAdicional of valoresAdicionales;let i = index;" class="row">
+              <div class="col-md-6 mb-3" >
+                <input type="text" class="form-control" placeholder="Ingrese nombre del dato" [(ngModel)]="valoresAdicionales[i].key">
+              </div>
+              <div class="col-md-6 mb-3">
+                <input type="text" class="form-control" placeholder="Ingrese valor" [(ngModel)]="valoresAdicionales[i].value">
+              </div>     
+            </div>       
+            <div class="col-md-6 mb-3">
+              <input type="button" class="btn btn-info" [disabled]="desBoton" (click)="seAgregoDato()" value="Agregar datos adicionales">
+            </div>
+           
         </div>
   
         <div class="row">
@@ -33,7 +53,6 @@
             <button type="submit" class="btn btn-success btn-block" [disabled]="formGroup.invalid">
               Guardar Historia
             </button>
-            <button type="button" class='btn btn-primary' (click)="cerrarModal()">Volver al home</button>
           </div>
       </div>
     </form>

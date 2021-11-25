@@ -16,9 +16,10 @@ export class MostrarHistoriaComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.usuarioAMostrar.historia.randomData != null){
+      console.log(this.usuarioAMostrar.historia.randomData);
       let keys = Object.keys(this.usuarioAMostrar.historia.randomData);
       for(let x of keys){
-        this.dataExtra.push({key:x,data:this.usuarioAMostrar.historia.randomData[x]});
+        this.dataExtra.push({key:x,data:this.usuarioAMostrar.historia.randomData[x].value});
       }
     }
   }

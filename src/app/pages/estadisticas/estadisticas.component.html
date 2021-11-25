@@ -1,0 +1,38 @@
+<div class="container" style="display: inline-block; margin:3%;padding-left: 10%;">
+    <button class="btn btn-info btn-sm " (click)="showEstadisticas()">Log Usuarios</button>
+    <button class="btn btn-info btn-sm " (click)="getTurnoPorEspecialidad()">Mostrar cantidad turnos por especialidad</button>
+    <button class="btn btn-info btn-sm " (click)="getTurnoPorDia()">Mostrar cantidad turnos por dia</button>
+    <button class="btn btn-info btn-sm " (click)="getTurnoSolicitadosUltimos15Dias()">Mostrar cantidad turnos solicitados en los ultimos 15 dias</button>
+      <!-- <button class="btn btn-info btn-sm " (click)="()">Mostrar cantidad turnos finalizados en los ultimos 15 dias</button> -->
+</div>
+<!-- <div style="display: block;width: 50%;height: 50%;margin-left: 25%;" *ngIf="data">
+    <canvas baseChart
+            [datasets]="data"
+            [labels]="labels"
+            [options]="options"
+            [legend]="legends"
+            [chartType]="type"
+    ></canvas>
+</div> -->
+<table  *ngIf="isShowEstadisticas" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Fecha Loggeo</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let log of listLogs">
+        <tr>
+            <th>
+                {{log.usuario}}
+            </th>
+            <th>
+                {{log.logeado}}
+            </th>
+        </tr>
+    </tbody>
+</table>
+<div class="container" style="display: inline-block; margin:3%;margin-left: 25%;" *ngIf="data"> 
+    <button class="btn btn-info btn-sm " (click)="descargarGrafico('excel')">Descargar Excel</button>
+    <button class="btn btn-info btn-sm " (click)="descargarGrafico('pdf')">Descargar PDF</button>
+</div>

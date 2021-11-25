@@ -27,6 +27,12 @@ import { ChangeFormatDatePipe } from './pipes/change-format-date.pipe';
 import { ShowFabButtonsComponent } from './components/show-fab-buttons/show-fab-buttons.component';
 import { CrearHistoriaComponent } from './pages/crear-historia/crear-historia.component';
 import { MostrarHistoriaComponent } from './components/mostrar-historia/mostrar-historia.component';
+import { ChangeTimespanPipe } from './pipes/change-timespan.pipe';
+import { ChartsModule } from 'ng2-charts';
+import { EstadisticasComponent } from './pages/estadisticas/estadisticas.component';
+import { PacientesComponent } from './pages/pacientes/pacientes.component';
+import { ShowTurnoWithHCComponent } from './components/show-turno-with-hc/show-turno-with-hc.component';
+import { ShowHCComponent } from './components/show-hc/show-hc.component';
 
 
 
@@ -46,8 +52,13 @@ import { MostrarHistoriaComponent } from './components/mostrar-historia/mostrar-
     TablaEspecialidadesComponent,
     TablaHorariosComponent,
     ChangeFormatDatePipe,
+    ChangeTimespanPipe,
     CrearHistoriaComponent,
-    MostrarHistoriaComponent
+    MostrarHistoriaComponent,
+    EstadisticasComponent,
+    PacientesComponent,
+    ShowTurnoWithHCComponent,
+    ShowHCComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +70,8 @@ import { MostrarHistoriaComponent } from './components/mostrar-historia/mostrar-
     AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     BrowserAnimationsModule,
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    ChartsModule
     
   ],
   providers: [],

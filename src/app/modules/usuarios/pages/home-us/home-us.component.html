@@ -1,4 +1,4 @@
-<div class="d-grid gap-2 col-6 mx-auto centrado">
+<div class="d-grid gap-2 col-6 mx-auto centrado" >
     <h3>Dar de alta usuarios de tipo: </h3>
     <button class="btn btn-info" type="button" (click)="irRegistro('paciente')">Paciente</button>
     <button class="btn btn-warning" type="button" (click)="irRegistro('administrador')">Administrador</button>
@@ -6,5 +6,12 @@
 <div class="d-grid gap-2 col-6 mx-auto centrado">
   <h3>Descargar detalle de los usuarios: </h3>
   <button class="btn btn-info" type="button" (click)="descargarExcel()">Descargar Excel</button>
-
 </div>
+<div class="d-grid gap-2 col-6 mx-auto centrado">
+  <h3>Turnos tomados (Hacer click para descargar detalles)</h3>
+</div>
+  
+  <div *ngFor="let turno of listaTurno" class="col-4" style="display: inline-block;height: 100%;">
+    <app-card-turno [turnoAMostrar]="turno"></app-card-turno>
+  </div>
+

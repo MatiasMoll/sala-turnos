@@ -1,0 +1,12 @@
+<div class="container">
+    <ul>
+        <li>Altura: {{turnoShowHC.historia.altura}}</li>
+        <li>Peso: {{turnoShowHC.historia.peso}}</li>
+        <li>Presion: {{turnoShowHC.historia.presion}}</li>
+        <li>Temperatura: {{turnoShowHC.historia.temperatura}}</li>
+        Valores Adicionales
+        <li *ngFor="let add of turnoShowHC.historia.randomData"> 
+            {{add.key}} : {{add.value}}
+        </li>
+    </ul>
+</div>

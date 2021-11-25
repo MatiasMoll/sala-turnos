@@ -3,8 +3,10 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Especialistas } from 'src/app/modelos/especialistas/especialistas';
 import { Pacientes } from 'src/app/modelos/pacientes/pacientes';
+import { Turno } from 'src/app/modelos/Turno/turno';
 import { ArchivosService } from 'src/app/services/archivos/archivos.service';
 import { IngresoService } from 'src/app/services/ingreso/ingreso.service';
+import { TurnoService } from 'src/app/services/turno/turno.service';
 
 @Component({
   selector: 'app-home-us',
@@ -13,13 +15,24 @@ import { IngresoService } from 'src/app/services/ingreso/ingreso.service';
 })
 export class HomeUsComponent implements OnInit {
 
+  public listaTurno:Array<Turno> = new Array<Turno>();
+  
   constructor(
     public router:Router,
     public ingreso:IngresoService,
-    public archivo:ArchivosService
+    public archivo:ArchivosService,
+    public turnosService:TurnoService
   ) { }
 
   ngOnInit(): void {
+    this.turnosService.getAll().snapshotChanges().pipe(
+      map(data =>{ 
+        data.map(esp => {
+          this.listaTurno.push(esp.payload.doc.data());
+
+        })
+      })
+    ).subscribe();
   }
 
   irRegistro(tipoUsuario:string){

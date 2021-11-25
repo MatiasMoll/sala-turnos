@@ -34,8 +34,21 @@
           </div>
           <hr />
         </div>
-        <div class="col-md-9" *ngIf="this.ingresoService.pacienteLogeado != null && this.ingresoService.pacienteLogeado.historia">
-          <app-mostrar-historia [usuarioAMostrar]="this.ingresoService.pacienteLogeado"></app-mostrar-historia>
+        <div class="row">
+          <div class="col-md-auto" *ngIf="this.ingresoService.pacienteLogeado != null && this.ingresoService.pacienteLogeado.historia">
+            <app-mostrar-historia [usuarioAMostrar]="this.ingresoService.pacienteLogeado"></app-mostrar-historia>
+          </div>
+        </div>
+       
+        <hr />
+        <div class="col-md-auto" *ngIf="this.ingresoService.pacienteLogeado != null && listEspecialidades">
+          <h2> Turnos Tomados </h2>
+          <div class="separacion">
+            <button class="btn btn-success btn-sm separacion" id='Todos' (click)="filtrarTurnoYDescargar($event)">Descargar todos los turnos</button>
+            <div *ngFor="let espTur of listEspecialidades" class="separacion" >
+              <button class="btn btn-success btn-sm" id={{espTur}} (click)="filtrarTurnoYDescargar($event)">Descargar turnos de {{espTur}}</button>
+            </div>
+          </div>
         </div>
         <div class="col-md-3" *ngIf="tipoUsuario == 'Especialista'">
           <div>
